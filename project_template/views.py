@@ -11,6 +11,7 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 def index(request):
     output_list = ''
     output=''
+    wine=''
     if request.GET.get('wine'):
         wine = request.GET.get('wine')
         output_list = find_similar(wine)
