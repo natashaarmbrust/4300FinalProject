@@ -11,18 +11,21 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 def index(request):
     output_list = ''
     output=''
-    if request.GET.get('search'):
-        search = request.GET.get('search')
-        output_list = find_similar(search)
-        paginator = Paginator(output_list, 10)
-        page = request.GET.get('page')
-        try:
-            output = paginator.page(page)
-        except PageNotAnInteger:
-            output = paginator.page(1)
-        except EmptyPage:
-            output = paginator.page(paginator.num_pages)
-    return render_to_response('project_template/index.html', 
-                          {'output': output,
+    if request.GET.get('wine'):
+        wine = request.GET.get('wine')
+        output_list = find_similar(wine)
+        # output_list = ["what's up"]
+        # paginator = Paginator(output_list, 10)
+        # page = request.GET.get('page')
+        # try:
+        #     output = paginator.page(page)
+        # except PageNotAnInteger:
+        #     output = paginator.page(1)
+        # except EmptyPage:
+        #     output = paginator.page(paginator.num_pages)
+    print(output_list)
+    return render_to_response('project_template/index.html',
+                          {'output': output_list,
+                           'input': wine,
                            'magic_url': request.get_full_path(),
                            })
