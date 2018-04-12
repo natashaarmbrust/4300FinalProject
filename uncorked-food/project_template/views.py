@@ -4,7 +4,7 @@ from django.http import HttpResponse
 from .models import Docs
 from django.template import loader
 from .form import QueryForm
-from .test import find_similar
+from .test import find_similar_levenshtein, index_search_cosine_sim
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 # Create your views here.
@@ -14,7 +14,7 @@ def index(request):
     wine=''
     if request.GET.get('wine'):
         wine = request.GET.get('wine')
-        output_list = find_similar(wine)
+        output_list = index_search_cosine_sim(wine)
         # output_list = ["what's up"]
         # paginator = Paginator(output_list, 10)
         # page = request.GET.get('page')
