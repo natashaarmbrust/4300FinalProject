@@ -5,11 +5,14 @@ import json
 import re
 
 
+
 def read_file(n):
 	path = Docs.objects.get(id = n).address;
 	file = open(path)
 	transcripts = json.load(file)
 	return transcripts
+
+wine_data = read_file(4)
 
 def _edit(query, msg):
     return Levenshtein.distance(query.lower(), msg.lower())
@@ -31,7 +34,7 @@ def tokenize(text):
 
 
 def find_similar(query):
-	wine_data = read_file(4)
+	# wine_data = read_file(4)
 	result = []
 	for wine in wine_data:
 		# for item in transcript:
@@ -46,5 +49,4 @@ def find_similar(query):
 
 	return final
 
-def get_bag_of_words(query):
-	wine_data = read_file(4)
+
