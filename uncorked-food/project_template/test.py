@@ -2,6 +2,7 @@ from .models import Docs
 import os
 import Levenshtein
 import json
+import re
 
 
 def read_file(n):
@@ -13,12 +14,37 @@ def read_file(n):
 def _edit(query, msg):
     return Levenshtein.distance(query.lower(), msg.lower())
 
-def find_similar(q):
-	transcripts = read_file(1)
-	result = []
-	for transcript in transcripts:
-		for item in transcript:
-			m = item['text']
-			result.append(((_edit(q, m)), m))
 
-	return sorted(result, key=lambda tup: tup[0])
+def tokenize(text):
+	"""Returns a list of words that make up the text.
+
+    Note: for simplicity, lowercase everything.
+    Requirement: Use Regex to satisfy this function
+
+    Params: {text: String}
+    Returns: Array
+    """
+
+	tokenized_text = text.lower()
+	tokenized_text = re.findall(r'[a-z]+',tokenized_text)  # splits string with delimiter being everything except alphabetical letters
+	return tokenized_text
+
+
+def find_similar(query):
+	wine_data = read_file(4)
+	result = []
+	for wine in wine_data:
+		# for item in transcript:
+			wine_description = wine['description']
+			wine_description_tokenized = tokenize(wine_description)
+			result.append(((_edit(query, wine_description)), wine_description,wine['title']))
+
+	top_ten = sorted(result, key=lambda tup: tup[0])[:10]
+	final = []
+	for i in top_ten:
+		final.append(i[2])
+
+	return final
+
+def get_bag_of_words(query):
+	wine_data = read_file(4)

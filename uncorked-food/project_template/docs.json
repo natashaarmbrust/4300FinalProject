@@ -1,9 +1,19 @@
+//[
+//  {
+//    "model": "project_template.Docs",
+//    "pk": 1,
+//    "fields": {
+//      "address": "jsons/kardashian-transcripts.json"
+//    }
+//  }
+//]
+
 [
   {
     "model": "project_template.Docs",
     "pk": 1,
     "fields": {
-      "address": "jsons/kardashian-transcripts.json"
+      "address": "data/wine-reviews/winemag-data-130k-v2.json"
     }
   }
 ]
