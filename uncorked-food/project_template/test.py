@@ -7,6 +7,8 @@ import numpy as np
 from collections import defaultdict
 from collections import Counter
 import math
+import nltk
+from nltk.corpus import stopwords
 
 
 def tokenize(text):
@@ -52,6 +54,7 @@ def build_inverted_index(msgs):
 			else:
 				inverted_index[word][str(doc_idx)] += 1
 		docid_to_winetitle[doc_idx] = wine['title']
+		docid_to_winedesc[doc_idx]= wine['description']
 		doc_idx += 1
 
 	for word in inverted_index:
@@ -85,11 +88,18 @@ def compute_doc_norms(index, idf, n_docs):
 	doc_norms1 = np.sqrt(doc_norms)
 	return doc_norms1
 
-global_inverted_index, docid_to_wine_title = build_inverted_index(wine_data)
+global_inverted_index, docid_to_wine_title, docid_desc = build_inverted_index(wine_data)
 num_docs = len(wine_data)
 idf_dict = compute_idf(global_inverted_index, num_docs)
 doc_norms = compute_doc_norms(global_inverted_index, idf_dict, num_docs)
 
+def profile(descriptions):
+	stopwords=set(stopwords.words('english'))
+	remove_tags={"CD" , "RB", "VBZ", "VBD", "IN", "MD", "VBG", "VBP"}
+	prof=set(tokenize(" ".join((descriptions))))
+	prof=prof-stopwords
+	tagged= nltk.pos_tag(prof)
+	return [x[0] for x in tagged if x[1] not in remove_tags]
 
 
 def index_search_cosine_sim(query):#index idf doc_norms
@@ -112,8 +122,8 @@ def index_search_cosine_sim(query):#index idf doc_norms
 		score_query_doc[doc] = score_query_doc[doc] / (query_norm * doc_norms[int(doc)])
 
 	sorted_by_second = sorted(list(score_query_doc.items()), key=lambda tup: tup[1], reverse=True)
-	final = [(v, docid_to_wine_title[int(k)]) for k, v in sorted_by_second]
-	return final[:10]
+	final = [(v, docid_to_wine_title[int(k)], docid_desc[int(k)] ) for k, v in sorted_by_second]
+	return final[:10], profile([x[2] for x in final[:10]])
 
 def find_similar_levenshtein(query):
 	# wine_data = read_file(4)
