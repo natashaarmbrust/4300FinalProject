@@ -44,21 +44,33 @@
                 <input id="wine" type="text" name="wine" class="form-control" placeholder="Input Wine Characteristics"><br>
 
             </div>
+
+            <br><br>
+            
+            <div class="form-group">
+                <input id="food" type="text" name="food" class="form-control" placeholder="Input Food Characteristics"><br>
+
+            </div>
+
+            <br><br>
             <button type="submit" class="btn-wine-info"> Go! </button>
 
         </form>
 
         <div class = "form-inline global-search">
-            <h4>
+            <h4>Wine Input: {{input_wine}}</h4><br>
 
-                Input: {{input}}
-
-            </h4>
+            <h4>Wine Output:</h4><br>
+            {% for line in output_wine %}
+                {{line}}<br>
+            {% endfor %}
         </div>
         
         <div class="form-inline global-search">
-            <h4>Output</h4><br>
-            {% for line in output %}
+            <h4>Food Input: {{input_food}}</h4><br>
+
+            <h4>Food Output:</h4><br>
+            {% for line in output_food %}
                 {{line}}<br>
             {% endfor %}
             
