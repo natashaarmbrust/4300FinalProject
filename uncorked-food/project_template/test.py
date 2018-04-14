@@ -32,7 +32,7 @@ def read_file(n):
 	transcripts = json.load(file)
 	return transcripts
 
-wine_data = read_file(4)
+
 
 def _edit(query, msg):
     return Levenshtein.distance(query.lower(), msg.lower())
@@ -42,6 +42,7 @@ def build_inverted_index(msgs):
 	inverted_index = defaultdict(dict)
 	doc_idx = 0
 	docid_to_winetitle = dict()
+	docid_to_winedesc = dict()
 	for wine in msgs:
 		s = ' '
 		string_list = [wine['title'],wine['variety'],wine['region_1'],wine['province'],wine['country'],wine['winery'],wine['description']]
@@ -59,7 +60,7 @@ def build_inverted_index(msgs):
 
 	for word in inverted_index:
 		inverted_index[word] = inverted_index[word].items()
-	return inverted_index, docid_to_winetitle
+	return inverted_index, docid_to_winetitle, docid_to_winedesc
 
 
 
@@ -88,10 +89,7 @@ def compute_doc_norms(index, idf, n_docs):
 	doc_norms1 = np.sqrt(doc_norms)
 	return doc_norms1
 
-global_inverted_index, docid_to_wine_title, docid_desc = build_inverted_index(wine_data)
-num_docs = len(wine_data)
-idf_dict = compute_idf(global_inverted_index, num_docs)
-doc_norms = compute_doc_norms(global_inverted_index, idf_dict, num_docs)
+
 
 def profile(descriptions):
 	stopwords=set(stopwords.words('english'))

@@ -9,9 +9,12 @@ from collections import Counter
 import math
 from enum import Enum
 import os
+import nltk
+nltk.download('stopwords')
+nltk.download('averaged_perceptron_tagger')
+from nltk.corpus import stopwords
 
-print("Path at terminal when executing this file")
-print(os.getcwd() + "\n")
+
 from .utility import read_file,read_csv,tokenize
 from .wine_processing import build_inverted_index_wine
 from .food_processing import build_inverted_index_food
@@ -38,7 +41,7 @@ def compute_doc_norms(index, idf, n_docs):
   doc_norms1 = np.sqrt(doc_norms)
   return doc_norms1
 
-def index_search_cosine_sim(query, inverted_index, doc_norms, idf, index_to_title):
+def index_search_cosine_sim_food(query, inverted_index, doc_norms, idf, index_to_title):
     query = tokenize(query.lower())
     score_query_doc = dict()
     query_norm = 0
@@ -59,10 +62,49 @@ def index_search_cosine_sim(query, inverted_index, doc_norms, idf, index_to_titl
     final = [(v, index_to_title[int(k)]) for k, v in sorted_by_second]
     return final[:10]
 
+def wine_profile(descriptions):
+
+    stop_words=set(stopwords.words('english'))
+    remove_tags={"CD" , "RB", "VBZ", "VBD", "IN", "MD", "VBG", "VBP"}
+    prof=set(tokenize((descriptions)))
+    print(prof)
+    prof= prof - stop_words
+    tagged= nltk.pos_tag(prof)
+
+    return [x[0] for x in tagged if x[1] not in remove_tags]
+
+def index_search_cosine_sim_wine(query, inverted_index, doc_norms, idf, index_to_title,index_to_description):
+    query = tokenize(query.lower())
+    score_query_doc = dict()
+    query_norm = 0
+    for word in query:
+        if word in idf:
+            query_norm += idf[word] ** 2
+            for doc in inverted_index[word]:
+                if doc[0] not in score_query_doc:
+                    score_query_doc[doc[0]] = idf[word] * doc[1] * idf[word]
+                else:
+                    score_query_doc[doc[0]] += idf[word] * doc[1] * idf[word]
+
+    query_norm = np.sqrt(query_norm)
+    for doc in score_query_doc:
+        score_query_doc[doc] = score_query_doc[doc] / (query_norm * doc_norms[int(doc)])
+
+    sorted_by_second = sorted(list(score_query_doc.items()), key=lambda tup: tup[1], reverse=True)
+    #print(sorted_by_second)
+    final = []
+    for i in range(10):
+        doc_id  = sorted_by_second[i][0]
+        doc_score = sorted_by_second[i][1]
+        final.append((doc_score,index_to_title[int(doc_id)],wine_profile(index_to_description[int(doc_id)])))
+    #final = [(v, index_to_title[int(k)], index_to_description[int(k)]) for k, v in sorted_by_second]
+    return final[:10]
+    #profile([x[2] for x in final[:10]])
+
 
 # Wine processing
 wine_data = read_file(4)
-inverted_index_wine, docid_to_wine_title = build_inverted_index_wine(wine_data)
+inverted_index_wine, docid_to_wine_title,docid_to_winedesc = build_inverted_index_wine(wine_data)
 num_docs_wine = len(wine_data)
 idf_dict_wine = compute_idf(inverted_index_wine, num_docs_wine)
 doc_norms_wine = compute_doc_norms(inverted_index_wine, idf_dict_wine, num_docs_wine)
@@ -82,32 +124,10 @@ def search(query, searchType):
   output = ""
 
   if searchType == SearchType.WINE:
-    output = index_search_cosine_sim(query, inverted_index_wine, doc_norms_wine, idf_dict_wine, docid_to_wine_title)
+    output = index_search_cosine_sim_wine(query, inverted_index_wine, doc_norms_wine, idf_dict_wine, docid_to_wine_title,docid_to_winedesc)
 
   elif searchType == SearchType.FOOD:
-    output = index_search_cosine_sim(query, inverted_index_food, doc_norms_food, idf_dict_food, recipe_id_to_title)
+    output = index_search_cosine_sim_food(query, inverted_index_food, doc_norms_food, idf_dict_food, recipe_id_to_title)
   
   return output 
 
-
-
-### MARK - Levenshtein
-
-def _edit(query, msg):
-    return Levenshtein.distance(query.lower(), msg.lower())
-
-def find_similar_levenshtein(query):
-  # wine_data = read_file(4)
-  result = []
-  for wine in wine_data:
-    # for item in transcript:
-      wine_description = wine['description']
-      wine_description_tokenized = tokenize(wine_description)
-      result.append(((_edit(query, wine_description)), wine_description,wine['title']))
-
-  top_ten = sorted(result, key=lambda tup: tup[0])[:10]
-  final = []
-  for i in top_ten:
-    final.append(i[2])
-
-  return final

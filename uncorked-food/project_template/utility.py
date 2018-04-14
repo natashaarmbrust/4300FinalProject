@@ -20,14 +20,7 @@ def read_csv(path):
 
 
 def tokenize(text):
-  """Returns a list of words that make up the text.
 
-    Note: for simplicity, lowercase everything.
-    Requirement: Use Regex to satisfy this function
-
-    Params: {text: String}
-    Returns: Array
-    """
   tokenized_text = text.lower()
   tokenized_text = re.findall(r'[a-z0-9]+',
                 tokenized_text)  # splits string with delimiter being everything except alphabetical letters
