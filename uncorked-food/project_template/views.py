@@ -21,16 +21,7 @@ def index(request):
     if request.GET.get('food'):
         query_food = request.GET.get('food')
         output_food = search(query_food, SearchType.FOOD)
-        
-        # output_list = ["what's up"]
-        # paginator = Paginator(output_list, 10)
-        # page = request.GET.get('page')
-        # try:
-        #     output = paginator.page(page)
-        # except PageNotAnInteger:
-        #     output = paginator.page(1)
-        # except EmptyPage:
-        #     output = paginator.page(paginator.num_pages)
+
 
     return render_to_response('project_template/index.html',
                           {'output_wine': output_wine,

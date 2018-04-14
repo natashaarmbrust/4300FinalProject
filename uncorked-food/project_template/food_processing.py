@@ -1,6 +1,6 @@
 import numpy as np
 import math
-from utility import *
+from .utility  import *
 
 """
 builds inverted index and id to recipe title index 

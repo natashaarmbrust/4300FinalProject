@@ -7,7 +7,7 @@ import numpy as np
 from collections import defaultdict
 from collections import Counter
 import math
-from utility import *
+from .utility import *
 
 
 
