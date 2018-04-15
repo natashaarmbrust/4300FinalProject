@@ -67,7 +67,6 @@ def wine_profile(descriptions):
     stop_words=set(stopwords.words('english'))
     remove_tags={"CD" , "RB", "VBZ", "VBD", "IN", "MD", "VBG", "VBP"}
     prof=set(tokenize((descriptions)))
-    print(prof)
     prof= prof - stop_words
     tagged= nltk.pos_tag(prof)
 
