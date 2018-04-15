@@ -3,15 +3,15 @@ from pandas import read_csv
 mapping_chart = read_csv("./data/wine-folly-pairing-rules/wine_folly_pairings.csv")
 
 wine_buckets = {
-	'sparkling' : set(['champagne']),
-	'dessert' : set(['port','sherry','botrytis','dessert','eiswein']),
-	'sweet_white' : set(['moscato']),
-	'light_white' : set(['riesling','pinot gris','sauvignon blanc']),
-	'rich_white' : set(['chardonnay']),
-	'rose' : set(['rose']),
-	'bold_red' : set(['bordeaux','syrah','shiraz','malbec','mourvedre','pinotage','cabernet sauvignon','meritage']),
-	'medium_red' : set(['merlot','sangiovese','zinfandel','cabernet franc','tempranillo','nebbiolo','barbera']),
-	'light_red' : set(['pinot noir','gamay'])
+	'sparkling' : set(['champagne','prosecco','sparkling blend']),
+	'dessert' : set(['port','sherry','muscat','dessert','eiswein','madeira']),
+	'sweet_white' : set(['moscato','riesling','chenin blanc','gewurztraminer','muscadelle']),
+	'light_white' : set(['pinot blanc','pinot gris','sauvignon blanc','pinot grigio','trebbiano','sylvaner']),
+	'rich_white' : set(['chardonnay','semillon','viognier','marsanne','roussanne','bordeaux-style white blend']),
+	'rose' : set(['rose','white zinfandel']),
+	'bold_red' : set(['bordeaux-style red blend','syrah','shiraz','malbec','mourvedre','pinotage','cabernet sauvignon','meritage']),
+	'medium_red' : set(['merlot','sangiovese','zinfandel','cabernet franc','tempranillo','nebbiolo','barbera','tinta de toro']),
+	'light_red' : set(['pinot noir','gamay','grenache','carignan','counoise'])
 }
 
 food_buckets = {
