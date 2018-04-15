@@ -16,6 +16,7 @@ def build_inverted_index_wine(msgs):
 	doc_idx = 0
 	docid_to_winetitle = dict()
 	docid_to_winedesc = dict()
+	docid_to_variety = dict()
 	for wine in msgs:
 		s = ' '
 		string_list = [wine['title'],wine['variety'],wine['region_1'],wine['province'],wine['country'],wine['winery'],wine['description']]
@@ -28,12 +29,13 @@ def build_inverted_index_wine(msgs):
 			else:
 				inverted_index[word][str(doc_idx)] += 1
 		docid_to_winetitle[doc_idx] = wine['title']
-		docid_to_winedesc[doc_idx] = wine['description']
+		docid_to_winedesc[doc_idx] = wine['description'] # Unused currently
+		docid_to_variety[doc_idx] = wine['variety']
 		doc_idx += 1
 
 	for word in inverted_index:
 		inverted_index[word] = inverted_index[word].items()
-	return inverted_index, docid_to_winetitle,docid_to_winedesc
+	return inverted_index, docid_to_winetitle, docid_to_variety
 
 
 
