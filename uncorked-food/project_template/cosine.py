@@ -87,18 +87,21 @@ def index_search_cosine_sim_wine(query, inverted_index, doc_norms, idf, index_to
                     score_query_doc[doc[0]] += idf[word] * doc[1] * idf[word]
 
     query_norm = np.sqrt(query_norm)
+    print(score_query_doc)
+    print(doc_norms)
     for doc in score_query_doc:
         score_query_doc[doc] = score_query_doc[doc] / (query_norm * doc_norms[int(doc)])
 
     sorted_by_second = sorted(list(score_query_doc.items()), key=lambda tup: tup[1], reverse=True)
-    #print(sorted_by_second)
+    print(sorted_by_second)
+
     final = []
     varieties = []
     for i in range(10):
         doc_id  = sorted_by_second[i][0]
         doc_score = sorted_by_second[i][1]
-        final.append((doc_score,index_to_title[int(doc_id)],index_to_variety[int(doc_id)]))
-        varieties.append(index_to_variety[int(doc_id)])
+        final.append((doc_score,index_to_title[doc_id],index_to_variety[doc_id]))
+        varieties.append(index_to_variety[doc_id])
     
     #final = [(v, index_to_title[int(k)], index_to_description[int(k)]) for k, v in sorted_by_second]
     return final[:10], varieties
@@ -124,11 +127,6 @@ idf_dict_food = compute_idf(inverted_index_food, num_docs_food)
 doc_norms_food = compute_doc_norms(inverted_index_food, idf_dict_food, num_docs_food)"""
 
 num_docs_food = len(food_data)
-inverted_index_food = None
-recipe_id_to_title = None
-idf_dict_food = None
-doc_norms_food = None
-docid_to_winedesc = None
 
 def computeData(inverted_index_f, inverted_index_w):
     num_docs_food = len(food_data)
@@ -145,25 +143,25 @@ def saveData():
     idf_dict_food = compute_idf(inverted_index_food, num_docs_food)
     doc_norms_food = compute_doc_norms(inverted_index_food, idf_dict_food, num_docs_food)
     
-    inverted_index_wine, docid_to_wine_title,docid_to_winedesc = build_inverted_index_wine(wine_data)
+    inverted_index_wine, docid_to_wine_title, docid_to_variety = build_inverted_index_wine(wine_data)
     num_docs_wine = len(wine_data)
     idf_dict_wine = compute_idf(inverted_index_wine, num_docs_wine)
     doc_norms_wine = compute_doc_norms(inverted_index_wine, idf_dict_wine, num_docs_wine)
 
-    """with open('data/jsons/food_inverted_index.json', 'w') as f:
+    with open('data/jsons/food_inverted_index.json', 'w') as f:
                     json.dump(inverted_index_food, f)
             
-                with open('data/jsons/recipe_id_to_title.json','w') as f:
-                    json.dump(recipe_id_to_title, f)
-            
-                with open('data/jsons/doc_norms_food.json', 'w') as f:
-                    json.dump(num_docs_food, f)
-            
-                with open('data/jsons/idf_dict_food.json', 'w') as f:
-                    json.dump(idf_dict_food, f)
-            
-                with open('data/jsons/wine_inverted_index.json', 'w') as f:
-                    json.dump(inverted_index_wine, f)"""
+    with open('data/jsons/recipe_id_to_title.json','w') as f:
+        json.dump(recipe_id_to_title, f)
+
+    with open('data/jsons/doc_norms_food.json', 'w') as f:
+        json.dump(num_docs_food, f)
+
+    with open('data/jsons/idf_dict_food.json', 'w') as f:
+        json.dump(idf_dict_food, f)
+
+    with open('data/jsons/wine_inverted_index.json', 'w') as f:
+        json.dump(inverted_index_wine, f)
 
     np.savetxt("data/jsons/doc_norms_wine.txt", doc_norms_wine)
 
@@ -173,8 +171,8 @@ def saveData():
     with open('data/jsons/docid_to_wine_title.json', 'w') as f:
         json.dump(docid_to_wine_title, f)
 
-    with open('data/jsons/docid_to_winedesc.json','w') as f:
-        json.dump(docid_to_winedesc, f)
+    with open('data/jsons/docid_to_variety.json','w') as f:
+        json.dump(docid_to_variety, f)
 
 def loadData():
     inverted_index_wine = None
@@ -182,9 +180,17 @@ def loadData():
     docid_to_winedes = None
     idf_dict_wine = None
     doc_norms_wine = None
+    inverted_index_food = None
+    recipe_id_to_title = None
+    idf_dict_food = None
+    doc_norms_food = None
+    docid_to_variety = None
 
     with open('data/jsons/food_inverted_index.json') as f:
         inverted_index_food = json.load(f)
+
+    with open('data/jsons/recipe_id_to_title.json') as f:
+        recipe_id_to_title = json.load(f)
 
     with open('data/jsons/doc_norms_food.json') as f:
         doc_norms_food = json.load(f)
@@ -203,21 +209,21 @@ def loadData():
     with open('data/jsons/docid_to_wine_title.json') as f:
         docid_to_wine_title = json.load(f) 
 
-    with open('data/jsons/docid_to_winedesc.json') as f:
-        docid_to_winedesc = json.load(f) 
+    with open('data/jsons/docid_to_variety.json') as f:
+        docid_to_variety = json.load(f) 
 
-    return inverted_index_wine,inverted_index_food, docid_to_wine_title,docid_to_winedesc, idf_dict_wine, doc_norms_wine
+    return inverted_index_wine,inverted_index_food, docid_to_wine_title,docid_to_variety, idf_dict_wine, doc_norms_wine, recipe_id_to_title, idf_dict_food, doc_norms_food
 
 
-#saveData()
 
 class SearchType(Enum):
     FOOD = 1
     WINE = 2 
 
 def search(query, searchType):
+  #saveData()
   output = ""
-  inverted_index_wine,inverted_index_food, docid_to_wine_title, docid_to_winedes, idf_dict_wine, doc_norms_wine = loadData()
+  inverted_index_wine,inverted_index_food, docid_to_wine_title,docid_to_variety, idf_dict_wine, doc_norms_wine, recipe_id_to_title, idf_dict_food, doc_norms_food = loadData()
 
   if searchType == SearchType.WINE:
     wine_output, varieties = index_search_cosine_sim_wine(query, inverted_index_wine, doc_norms_wine, idf_dict_wine, docid_to_wine_title,docid_to_variety)
