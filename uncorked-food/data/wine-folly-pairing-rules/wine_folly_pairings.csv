@@ -1,4 +1,4 @@
-food_types,bold_red,medium_red,light_red,rose,rich_white,light_white,sparkling,sweet_wine,dessert
+food_types,bold_red,medium_red,light_red,rose,rich_white,light_white,sparkling,sweet_white,dessert
 red_meat,2,1,0,0,0,0,0,0,0
 cured_meat,1,1,2,1,0,0,1,2,1
 pork,1,2,0,1,0,0,1,0,0
@@ -9,7 +9,7 @@ lobster,0,0,0,1,2,1,0,1,0
 shellfish,0,0,0,1,2,1,0,1,0
 grilled,2,1,1,0,0,0,1,1,0
 barbecued,2,1,1,0,0,0,1,1,0
-sateed,0,0,2,1,1,1,1,0,0
+sauteed,0,0,2,1,1,1,1,0,0
 fried,0,0,2,1,1,1,1,0,0
 smoked,1,2,1,1,0,0,1,0,1
 roasted,2,1,1,1,0,0,0,1,0
