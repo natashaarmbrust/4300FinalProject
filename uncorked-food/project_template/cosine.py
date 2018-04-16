@@ -102,7 +102,7 @@ def index_search_cosine_sim_wine(query, inverted_index, doc_norms, idf, index_to
 
 
 # Wine processing
-wine_data = read_file(4)
+wine_data = read_file(2)
 inverted_index_wine, docid_to_wine_title, docid_to_variety = build_inverted_index_wine(wine_data)
 num_docs_wine = len(wine_data)
 idf_dict_wine = compute_idf(inverted_index_wine, num_docs_wine)
