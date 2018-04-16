@@ -104,17 +104,109 @@ def index_search_cosine_sim_wine(query, inverted_index, doc_norms, idf, index_to
 
 # Wine processing
 wine_data = read_file(4)
-inverted_index_wine, docid_to_wine_title,docid_to_winedesc = build_inverted_index_wine(wine_data)
-num_docs_wine = len(wine_data)
+"""inverted_index_wine, docid_to_wine_title,docid_to_winedesc = build_inverted_index_wine(wine_data)
+
 idf_dict_wine = compute_idf(inverted_index_wine, num_docs_wine)
-doc_norms_wine = compute_doc_norms(inverted_index_wine, idf_dict_wine, num_docs_wine)
+doc_norms_wine = compute_doc_norms(inverted_index_wine, idf_dict_wine, num_docs_wine)"""
+
+num_docs_wine = len(wine_data)
+
+
 
 # Food Processing
 food_data = read_csv("./data/epicurious-recipes-with-rating-and-nutrition/epi_r.csv")
-inverted_index_food, recipe_id_to_title = build_inverted_index_food(food_data)
+"""inverted_index_food, recipe_id_to_title = build_inverted_index_food(food_data)
 num_docs_food = len(food_data)
 idf_dict_food = compute_idf(inverted_index_food, num_docs_food)
-doc_norms_food = compute_doc_norms(inverted_index_food, idf_dict_food, num_docs_food)
+doc_norms_food = compute_doc_norms(inverted_index_food, idf_dict_food, num_docs_food)"""
+
+num_docs_food = len(food_data)
+inverted_index_food = None
+recipe_id_to_title = None
+idf_dict_food = None
+doc_norms_food = None
+docid_to_winedesc = None
+
+def computeData(inverted_index_f, inverted_index_w):
+    num_docs_food = len(food_data)
+    idf_dict_food = compute_idf(inverted_index_f, num_docs_food)
+    doc_norms_food = compute_doc_norms(inverted_index_f, idf_dict_food, num_docs_food)
+    
+    num_docs_wine = len(wine_data)
+    idf_dict_wine = compute_idf(inverted_index_w, num_docs_wine)
+    doc_norms_wine = compute_doc_norms(inverted_index_w, idf_dict_wine, num_docs_wine)
+
+def saveData():
+    inverted_index_food, recipe_id_to_title = build_inverted_index_food(food_data)
+    num_docs_food = len(food_data)
+    idf_dict_food = compute_idf(inverted_index_food, num_docs_food)
+    doc_norms_food = compute_doc_norms(inverted_index_food, idf_dict_food, num_docs_food)
+    
+    inverted_index_wine, docid_to_wine_title,docid_to_winedesc = build_inverted_index_wine(wine_data)
+    num_docs_wine = len(wine_data)
+    idf_dict_wine = compute_idf(inverted_index_wine, num_docs_wine)
+    doc_norms_wine = compute_doc_norms(inverted_index_wine, idf_dict_wine, num_docs_wine)
+
+    """with open('data/jsons/food_inverted_index.json', 'w') as f:
+                    json.dump(inverted_index_food, f)
+            
+                with open('data/jsons/recipe_id_to_title.json','w') as f:
+                    json.dump(recipe_id_to_title, f)
+            
+                with open('data/jsons/doc_norms_food.json', 'w') as f:
+                    json.dump(num_docs_food, f)
+            
+                with open('data/jsons/idf_dict_food.json', 'w') as f:
+                    json.dump(idf_dict_food, f)
+            
+                with open('data/jsons/wine_inverted_index.json', 'w') as f:
+                    json.dump(inverted_index_wine, f)"""
+
+    np.savetxt("data/jsons/doc_norms_wine.txt", doc_norms_wine)
+
+    with open('data/jsons/idf_dict_wine.json', 'w') as f:
+        json.dump(idf_dict_wine, f)
+
+    with open('data/jsons/docid_to_wine_title.json', 'w') as f:
+        json.dump(docid_to_wine_title, f)
+
+    with open('data/jsons/docid_to_winedesc.json','w') as f:
+        json.dump(docid_to_winedesc, f)
+
+def loadData():
+    inverted_index_wine = None
+    docid_to_wine_title = None
+    docid_to_winedes = None
+    idf_dict_wine = None
+    doc_norms_wine = None
+
+    with open('data/jsons/food_inverted_index.json') as f:
+        inverted_index_food = json.load(f)
+
+    with open('data/jsons/doc_norms_food.json') as f:
+        doc_norms_food = json.load(f)
+
+    with open('data/jsons/idf_dict_food.json') as f:
+        idf_dict_food = json.load(f)
+
+    with open('data/jsons/wine_inverted_index.json') as f:
+        inverted_index_wine = json.load(f)
+
+    doc_norms_wine = np.loadtxt("data/jsons/doc_norms_wine.txt")
+
+    with open('data/jsons/idf_dict_wine.json') as f:
+        idf_dict_wine = json.load(f)
+
+    with open('data/jsons/docid_to_wine_title.json') as f:
+        docid_to_wine_title = json.load(f) 
+
+    with open('data/jsons/docid_to_winedesc.json') as f:
+        docid_to_winedesc = json.load(f) 
+
+    return inverted_index_wine,inverted_index_food, docid_to_wine_title,docid_to_winedesc, idf_dict_wine, doc_norms_wine
+
+
+#saveData()
 
 class SearchType(Enum):
     FOOD = 1
@@ -122,11 +214,13 @@ class SearchType(Enum):
 
 def search(query, searchType):
   output = ""
+  inverted_index_wine,inverted_index_food, docid_to_wine_title, docid_to_winedes, idf_dict_wine, doc_norms_wine = loadData()
 
   if searchType == SearchType.WINE:
     output = index_search_cosine_sim_wine(query, inverted_index_wine, doc_norms_wine, idf_dict_wine, docid_to_wine_title,docid_to_winedesc)
 
   elif searchType == SearchType.FOOD:
+    print(inverted_index_food)
     output = index_search_cosine_sim_food(query, inverted_index_food, doc_norms_food, idf_dict_food, recipe_id_to_title)
   
   return output 
