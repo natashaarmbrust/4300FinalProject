@@ -18,6 +18,7 @@ from nltk.corpus import stopwords
 from .utility import read_file,read_csv,tokenize
 from .wine_processing import build_inverted_index_wine
 from .food_processing import build_inverted_index_food
+from .mapping import generate_food_words
 
 ## MARK - Cosine Similarity
 
@@ -92,12 +93,15 @@ def index_search_cosine_sim_wine(query, inverted_index, doc_norms, idf, index_to
     sorted_by_second = sorted(list(score_query_doc.items()), key=lambda tup: tup[1], reverse=True)
     #print(sorted_by_second)
     final = []
+    varieties = []
     for i in range(10):
         doc_id  = sorted_by_second[i][0]
         doc_score = sorted_by_second[i][1]
         final.append((doc_score,index_to_title[int(doc_id)],index_to_variety[int(doc_id)]))
+        varieties.append(index_to_variety[int(doc_id)])
+    
     #final = [(v, index_to_title[int(k)], index_to_description[int(k)]) for k, v in sorted_by_second]
-    return final[:10]
+    return final[:10], varieties
     #profile([x[2] for x in final[:10]])
 
 
@@ -123,10 +127,14 @@ def search(query, searchType):
   output = ""
 
   if searchType == SearchType.WINE:
-    output = index_search_cosine_sim_wine(query, inverted_index_wine, doc_norms_wine, idf_dict_wine, docid_to_wine_title,docid_to_variety)
+    wine_output, varieties = index_search_cosine_sim_wine(query, inverted_index_wine, doc_norms_wine, idf_dict_wine, docid_to_wine_title,docid_to_variety)
+    food_words = generate_food_words(varieties)
+    food_words = " ".join(food_words)
+    food_output = index_search_cosine_sim_food(food_words, inverted_index_food, doc_norms_food, idf_dict_food, recipe_id_to_title)
+    output = food_output
 
   elif searchType == SearchType.FOOD:
     output = index_search_cosine_sim_food(query, inverted_index_food, doc_norms_food, idf_dict_food, recipe_id_to_title)
   
-  return output 
+  return output
 

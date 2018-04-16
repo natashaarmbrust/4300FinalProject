@@ -1,3 +1,4 @@
+import numpy as np
 from pandas import read_csv
 
 mapping_chart = read_csv("./data/wine-folly-pairing-rules/wine_folly_pairings.csv")
@@ -73,23 +74,26 @@ def get_wine_bucket(wine_words):
     return scores[0][0]
 
 def wine_to_food(wine):
-    food_vec = mapping_chart[wine]
-    food_indices = food_vec[food_vec==2]
-    food_indices = food_indices.nonzero()[0]
-    food_buckets = mapping_chart['food_types'][food_indices]
-    return food_buckets
+    food_vec = mapping_chart[wine].as_matrix()
+    food_indices = np.where(food_vec==2)[0]
+    food_types = mapping_chart['food_types'][food_indices]
+    return food_types
 
 def generate_food_words(wine_words):
 	''' Input: list of strings
 	Output: list of strings 
 	Function returns the relevant food description words 
 	for a given set of wine description words. '''
-    wine_type = get_wine_bucket(wine_words)
-    food_types = wine_to_food(wine_type)
-    food_words = []
-    for food in food_types:
-        food_words.extend(food_buckets[food])
-    return food_words
+	wine_words = set([word.lower() for word in wine_words])
+	# wine_words = set(wine_words[0].lower())
+	wine_type = get_wine_bucket(wine_words)
+	print("wine bucket: ",wine_type)
+	food_types = wine_to_food(wine_type)
+	print("food types: ",food_types)
+	food_words = []
+	for food in food_types:
+		food_words.extend(food_buckets[food])
+ 	return food_words
 
 def generate_wine_words(food_words):
 	''' Input: list of strings
