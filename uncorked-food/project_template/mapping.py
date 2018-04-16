@@ -93,7 +93,7 @@ def generate_food_words(wine_words):
 	food_words = []
 	for food in food_types:
 		food_words.extend(food_buckets[food])
- 	return food_words
+	return food_words
 
 def generate_wine_words(food_words):
 	''' Input: list of strings
