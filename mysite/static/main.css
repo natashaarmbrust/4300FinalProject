@@ -1,0 +1,19 @@
+.container h1 {
+  color: #4A1314;
+  font-size: 55px; 
+  font-family:Futura;
+  letter-spacing: 10px;
+}
+
+.container {
+  margin: auto !important;
+  text-align: center;
+}
+
+.row {
+	display: inline-flex;
+}
+
+.col {
+	padding: 15px;
+}

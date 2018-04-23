@@ -1,0 +1,109 @@
+<html>
+    <head>
+    <link rel="stylesheet" href="/static/bootstrap.min.css">
+    <link rel="stylesheet" href="/static/main.css">
+
+    <!-- BOOTSTRAP -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+    </head>
+    
+<body>
+
+    <div class="container">
+    <h1>UNCORKED</h1>
+        <div class="row">
+            <div class="col-12">
+
+                {% if state == 1 %}
+                  <!-- Food/Wine buttons -->
+                  <div>
+                    <form method="get" id="pick-form">
+                      <button class="btn btn-default" name="search_food" type="button" value="food" onclick="pick(SearchType.FOOD)">Search for a food pairing</button>
+
+                      <button class="btn btn-default" name="search_wine" type="button" value="wine" onclick="pick(SearchType.WINE)">Search for a wine pairing</button>
+                    </form>
+                  </div>
+                  <!-- Food/Wine buttons end -->
+                {% endif %}
+
+                {% if state == 2 or state == 3 %}
+                <!-- Search bar -->
+                <div id="search-bar">
+                  <div class="col-md-3"></div>
+                  <div class="col-md-6">
+                    <form method="get" id="search-form">
+                        <div class="input-group">
+                        <input type="text" class="form-control" name="q" placeholder="{{placeholder}}">
+                      <span class="input-group-btn">
+                      <button class="btn btn-default" type="button" onclick="search()">Go!</button></span>
+                      </div>
+                    </form>
+                  </div>
+                  <div class="col-md-3"></div>
+                </div>
+              <!-- Search bar end -->
+              {% endif %}
+            
+            </div>
+        </div>
+
+        {% if state == 4 %}
+
+            <div id="food_recs" class="row">
+
+                {% for output in food_output %}
+                    <div class="col">
+                        <img src="/static/img/{{output.bucket}}_3.png" class="wine_pic" alt="wine photo"><br>
+                        Words: &nbsp; {{output.words}}
+                        <br>
+                        {% for recipe in output.recipes %}
+                            <br>
+                            Title: {{recipe.title}}<br>
+                            Calories: {{recipe.calories}}<br>
+                            Rating: {{recipe.rating}}<br>
+                        {% endfor %}
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        {% if state == 5 %}
+          <div> Coming Soon! </div>
+        {% endif %}
+
+        {% if state != 1 %}
+          <form method="get" id="reset">
+              <button class="btn btn-default" name="new_search" type="button" value="new_search" onclick="resetNewSearch()">New Search</button>
+          </form>
+        {% endif %}
+    </div>
+</body>
+</html>
+
+<script>
+var SearchType = {FOOD: "food", WINE: "wine"};
+Object.freeze(SearchType);
+
+/* Food/Wine button click */
+function pick(value) {
+  $('#pick-form').attr('action', "/" + value + "/");
+  $('#pick-form').submit();
+}
+
+/* append which search type and submit form */
+function search() {
+  console.log({{state}})
+  $('#search-form').attr('action', "/search/" + {{state}});
+  $('#search-form').submit();
+}
+
+function resetNewSearch() {
+  location.replace("http://127.0.0.1:8000/");
+}
+
+</script>
+
