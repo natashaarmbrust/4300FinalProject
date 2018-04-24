@@ -21,8 +21,10 @@ RESULT_FOOD = 5
 
 state = START
 
-placeholder_wine = "Input wine characteristics"
-placeholder_food = "Input food characteristics"
+placeholder_wine = "Keyword examples: fruity, oak, Riesling, 2017, etc."
+placeholder_food = "Keyword examples: salmon, lemon, pepper, etc."
+search_description_food = "Describe your food ..."
+search_description_wine = "Describe your wine ..."
 
 # Wine Data
 wine_data = read_file(4)
@@ -53,6 +55,7 @@ def search_wine(request):
   return render_to_response('project_template/index.html',
                               {
                               "state": state,
+                              "search_description": search_description_food,
                               "placeholder": placeholder_food,
                               })
 
@@ -63,6 +66,7 @@ def search_food(request):
   return render_to_response('project_template/index.html',
                               {
                               "state": state,
+                              "search_description": search_description_wine,
                               "placeholder": placeholder_wine,
                               })
 
@@ -72,7 +76,7 @@ def result_wine(request):
   query = request.GET.get('q')
   state = RESULT_FOOD
   # Replace with actual outputs
-
+  top_wine_outputs = []
   if query:
       # TODO 
       top_wine_outputs = ['Wine 1', 'Wine2', 'Wine3']
@@ -162,22 +166,33 @@ food_output: [List of dictionaries] (we can also do classes too)]
   ]
 
 """
-def from_wine_get_food(query):
+def from_wine_get_food(top_3_wines):
 
   # FAKE DATA - TODO: REPLACE 
-  food_output = [{"bucket" : "bold_red", 
-                  "words" : ["black pepper", "hard cheese"], 
-                  "recipes" : [ {"title": "Lentil, Apple, and Turkey Wrap", "rating": 2.5, "calories": 426.0},
-                                {"title": "Amazing recipe", "rating": 10, "calories": 800.0}]},
-                {"bucket" : "medium_red", 
-                  "words" : ["fungi", "something"], 
-                  "recipes" : [ {"title": "Some sort of yummy recipe", "rating": 2.5, "calories": 426.0},
-                                {"title": "yummy yummy yummy", "rating": 10, "calories": 800.0}]},
+  # food_output = [{"bucket" : "bold_red", 
+  #                 "words" : ["black pepper", "hard cheese"], 
+  #                 "recipes" : [ {"title": "Lentil, Apple, and Turkey Wrap", "rating": 2.5, "calories": 426.0},
+  #                               {"title": "Amazing recipe", "rating": 10, "calories": 800.0}]},
+  #               {"bucket" : "medium_red", 
+  #                 "words" : ["fungi", "something"], 
+  #                 "recipes" : [ {"title": "Some sort of yummy recipe", "rating": 2.5, "calories": 426.0},
+  #                               {"title": "yummy yummy yummy", "rating": 10, "calories": 800.0}]},
 
-                {"bucket" : "dessert", 
-                  "words" : ["fungi", "something"], 
-                  "recipes" : [ {"title": "Some sort of yummy recipe", "rating": 2.5, "calories": 426.0},
-                                {"title": "yummy yummy yummy", "rating": 10, "calories": 800.0}]}]
+  #               {"bucket" : "dessert", 
+  #                 "words" : ["fungi", "something"], 
+  #                 "recipes" : [ {"title": "Some sort of yummy recipe", "rating": 2.5, "calories": 426.0},
+  #                               {"title": "yummy yummy yummy", "rating": 10, "calories": 800.0}]}]
 
+  for wine in top_3_wines:
+    bucket, words, foods = generate_food_words(wine[varietal], wine[profile])
+    foods = " ".join(foods)
+    recipes = index_search_cosine_sim_food(foods, inverted_index_food, doc_norms_food, idf_dict_food,
+                                                   recipe_id_to_title)
+    result = {
+      "bucket" : bucket,
+      "words" : words,
+      "recipes" : recipes
+    }
+    food_output.append(result)
 
   return food_output

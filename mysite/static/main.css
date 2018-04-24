@@ -3,6 +3,69 @@
   font-size: 55px; 
   font-family:Futura;
   letter-spacing: 10px;
+  border-width: 2px;
+  padding-bottom: 10px;
+  border-bottom: solid;
+  border-color: #4A1314;
+  margin: auto;
+}
+
+.button {
+    background-color: white; 
+    border: none;
+    color: #ccc;
+    padding: 16px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+    cursor: pointer;
+    -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+    border-radius: 2px;
+}
+
+
+.button:hover {
+    background-color: #ccc; 
+    color: white;
+}
+
+.button1 {
+    background-color: #ccc !important; 
+    color: white;
+}
+
+.button1:hover {
+    background-color: white !important; 
+    color: #ccc !important;
+    border: solid #ccc 1px;
+}
+
+
+
+.container { 
+  padding-top: 25px !important;
+} 
+
+#search-form {
+  margin-top: 25px;
+  margin-bottom: 25px;
+}
+
+h2 {
+  display: block;
+  margin: auto;
+  color: #4A1314 !important;
+  font-size: 24px; 
+  font-family:Futura;
+}
+
+#searchText {
+  width: 400px;
 }
 
 .container {
@@ -16,4 +79,17 @@
 
 .col {
 	padding: 15px;
+  display: inline-block;
+}
+
+.button_photo {
+  width: 150px;
+  height: 150px;
+  display: block;
+  padding: 10px;
+  margin: auto;
+}
+
+.displayButtons {
+  display: inline-flex;
 }
