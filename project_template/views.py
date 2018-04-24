@@ -22,8 +22,10 @@ RESULT_FOOD = 5
 
 state = START
 
-placeholder_wine = "Input wine characteristics"
-placeholder_food = "Input food characteristics"
+placeholder_wine = "Keyword examples: fruity, oak, Riesling, 2017, etc."
+placeholder_food = "Keyword examples: salmon, lemon, pepper, etc."
+search_description_food = "Describe your food ..."
+search_description_wine = "Describe your wine ..."
 
 # Wine Data
 wine_data = read_file(4)
@@ -54,6 +56,7 @@ def search_wine(request):
   return render_to_response('project_template/index.html',
                               {
                               "state": state,
+                              "search_description": search_description_food,
                               "placeholder": placeholder_food,
                               })
 
@@ -64,6 +67,7 @@ def search_food(request):
   return render_to_response('project_template/index.html',
                               {
                               "state": state,
+                              "search_description": search_description_wine,
                               "placeholder": placeholder_wine,
                               })
 
@@ -73,7 +77,7 @@ def result_wine(request):
   query = request.GET.get('q')
   state = RESULT_FOOD
   # Replace with actual outputs
-
+  top_wine_outputs = []
   if query:
       # TODO 
       top_wine_outputs = ['Wine 1', 'Wine2', 'Wine3']
@@ -198,6 +202,7 @@ def from_wine_get_food(top_3_wines):
       "words" : list(words),
       "recipes" : top_recipes[:3]
     }
+
     food_output.append(result)
 
   return food_output

@@ -14,26 +14,34 @@
 <body>
 
     <div class="container">
-    <h1>UNCORKED</h1>
+    <h1 id="searchText">UNCORKED</h1>
         <div class="row">
             <div class="col-12">
 
                 {% if state == 1 %}
                   <!-- Food/Wine buttons -->
-                  <div>
+                  <h2>Search for a ... </h2>
+                  <div id="displayButtons" class="row">
+                    
                     <form method="get" id="pick-form">
 
-                      <img src="/static/img/burger.png" alt=""/>
-                      <button class="btn btn-default" name="search_food" type="button" value="food" onclick="pick(SearchType.FOOD)">Search for a food pairing</button>
+                      <div class="col">
+                      <img src="/static/img/burger.png" class="button_photo" alt="food">
+                      <button class="button" name="search_food" type="button" value="food" onclick="pick(SearchType.FOOD)">Food pairing</button>
+                      </div>
 
-                      <img src="/static/img/wineslogo.png" alt=""/>
-                      <button class="btn btn-default" name="search_wine" type="button" value="wine" onclick="pick(SearchType.WINE)">Search for a wine pairing</button>
+                      <div class="col">
+                       <img src="/static/img/wineslogo.png" class="button_photo" alt="food">
+                      <button class="button" name="search_wine" type="button" value="wine" onclick="pick(SearchType.WINE)">Wine pairing</button>
+                      </div>
                     </form>
                   </div>
                   <!-- Food/Wine buttons end -->
                 {% endif %}
 
                 {% if state == 2 or state == 3 %}
+
+                <h2>{{search_description}} </h2>
                 <!-- Search bar -->
                 <div id="search-bar">
                   <div class="col-md-3"></div>
@@ -80,7 +88,7 @@
 
         {% if state != 1 %}
           <form method="get" id="reset">
-              <button class="btn btn-default" name="new_search" type="button" value="new_search" onclick="resetNewSearch()">New Search</button>
+              <button class="button button1" name="new_search" type="button" value="new_search" onclick="resetNewSearch()">Try a new search</button>
           </form>
         {% endif %}
     </div>
