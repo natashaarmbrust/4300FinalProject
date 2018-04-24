@@ -60,7 +60,9 @@ def index_search_cosine_sim_food(query, inverted_index, doc_norms, idf, index_to
         score_query_doc[doc] = score_query_doc[doc] / (query_norm * doc_norms[int(doc)])
 
     sorted_by_second = sorted(list(score_query_doc.items()), key=lambda tup: tup[1], reverse=True)
-    final = [(v, index_to_title[int(k)]) for k, v in sorted_by_second]
+    
+    final = [{"title": index_to_title[str(k)]} for k, v in sorted_by_second]
+
     return final[:10]
 
 def wine_profile(descriptions):
@@ -155,4 +157,3 @@ def search(query, searchType):
 
   return wine_output
   # return output, wine_title, varieties, description, profile
-

@@ -22,8 +22,11 @@
                   <!-- Food/Wine buttons -->
                   <div>
                     <form method="get" id="pick-form">
+
+                      <img src="/static/img/burger.png" alt=""/>
                       <button class="btn btn-default" name="search_food" type="button" value="food" onclick="pick(SearchType.FOOD)">Search for a food pairing</button>
 
+                      <img src="/static/img/wineslogo.png" alt=""/>
                       <button class="btn btn-default" name="search_wine" type="button" value="wine" onclick="pick(SearchType.WINE)">Search for a wine pairing</button>
                     </form>
                   </div>
@@ -58,13 +61,13 @@
                 {% for output in food_output %}
                     <div class="col">
                         <img src="/static/img/{{output.bucket}}_3.png" class="wine_pic" alt="wine photo"><br>
-                        Words: &nbsp; {{output.words}}
+                        Flavor Matches: &nbsp; {{output.words}}
                         <br>
                         {% for recipe in output.recipes %}
                             <br>
-                            Title: {{recipe.title}}<br>
-                            Calories: {{recipe.calories}}<br>
-                            Rating: {{recipe.rating}}<br>
+                            Recipe: {{recipe.title}}<br>
+<!--                             Calories: {{recipe.calories}}<br>
+                            Rating: {{recipe.rating}}<br> -->
                         {% endfor %}
                     </div>
                 {% endfor %}

@@ -12,12 +12,12 @@ mapping_chart = read_csv(20)
 wine_buckets = {
 	'sparkling' : set(['champagne','prosecco','sparkling blend']),
 	'dessert' : set(['port','sherry','muscat','dessert','eiswein','madeira']),
-	'sweet_white' : set(['moscato','riesling','chenin blanc','gewurztraminer','muscadelle']),
+	'sweet_white' : set(['moscato','riesling','chenin blanc','gewurztraminer','muscadelle','white blend']),
 	'light_white' : set(['pinot blanc','pinot gris','sauvignon blanc','pinot grigio','trebbiano','sylvaner']),
 	'rich_white' : set(['chardonnay','semillon','viognier','marsanne','roussanne','bordeaux-style white blend']),
 	'rose' : set(['rose','white zinfandel']),
 	'bold_red' : set(['bordeaux-style red blend','syrah','shiraz','malbec','mourvedre','pinotage','cabernet sauvignon','meritage','bordeaux','cabernet']),
-	'medium_red' : set(['merlot','sangiovese','zinfandel','cabernet franc','tempranillo','nebbiolo','barbera','tinta de toro']),
+	'medium_red' : set(['merlot','sangiovese','zinfandel','cabernet franc','tempranillo','nebbiolo','barbera','tinta de toro','red blend']),
 	'light_red' : set(['pinot noir','gamay','grenache','carignan','counoise'])
 }
 
@@ -92,13 +92,20 @@ def similarity(set1, set2):
 
 ''' FUNCTIONS FOR WINE -> FOOD '''
 
-def get_wine_buckets(wine_words):
+def get_wine_bucket(wine_words):
     scores = [(wine,similarity(words,wine_words)) for wine,words in wine_buckets.items()]
     scores.sort(key=lambda x: x[1], reverse=True) 
-    print(scores)
+    # print(similarity(set([wine_words]),wine_buckets['light_white']))
+    # print(similarity(wine_buckets['light_white'],set([wine_words])))
+    # print(scores)
+    # print(wine_words)
     return scores[0][0]
-
-print(get_wine_buckets(['sauvignon blanc']))
+    # threshold = .0001
+    # buckets = []
+    # for i in range(3):
+    # 	if scores[i][1] > threshold:
+    # 		buckets.append(scores[i][0])
+    # return buckets
 
 def wine_to_food(wine):
     food_vec = mapping_chart[wine].as_matrix()
@@ -109,12 +116,12 @@ def wine_to_food(wine):
 def filter_wine_word(word):
 	### HERE INCORPORATE THESAURUS
 	for descriptor, words in taste_descriptors.items():
-		if word in words and word in wine_good_bad.keys():
+		if word in words and descriptor in wine_good_bad.keys():
 			return wine_good_bad[descriptor]
 	else:
-		return [word], []
+		return set([word]), set([])
 
-def generate_food_words(query):
+def generate_food_words(varietal, wine_words):
 	''' Input: list of strings
 	Output: list of strings 
 	Function returns the relevant food description words 
@@ -122,31 +129,27 @@ def generate_food_words(query):
 	
 	output = []
 
-	wine_words = set([word.lower() for word in query])
+	wine_words = set([word.lower() for word in wine_words])
 	good_flavors, bad_flavors = zip(*map(filter_wine_word, wine_words))
 	good_flavors = set.union(*good_flavors)
 	bad_flavors = set.union(*bad_flavors)
 
-	varietals = set([word.lower() for word in varietals])
-	wine_types = get_wine_buckets(varietals)
+	# varietals = set([word.lower() for word in varietals])
+	print("varietal", varietal)
+	wine_type = get_wine_bucket(set([varietal.lower()]))
 
-	for wine_type in wine_types:
-		food_types = wine_to_food(wine_type)
-		food_flavors = set(good_flavors)
-		for food in food_types:
-			food_flavors = set.union(food_flavors,food_buckets[food])
+	# for wine_type in wine_types:
+	food_types = wine_to_food(wine_type)
+	food_flavors = set(good_flavors)
+	for food in food_types:
+		food_flavors = set.union(food_flavors,food_buckets[food])
+	food_words = set.difference(food_flavors,bad_flavors)
 
-		food_words = set.difference(food_flavors,bad_flavors)
+	
+		# output.append(sub_output)
 
-		sub_output = {
-			"bucket" : wine_type, 
-			"words" : good_flavors, 
-			"query" : list(food_words)
-		}
-		output.append(sub_output)
-
-	return output
-
+	# return output
+	return wine_type, good_flavors, list(food_words)
 
 
 ''' FUNCTIONS FOR FOOD -> WINE '''

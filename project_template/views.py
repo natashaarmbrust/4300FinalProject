@@ -10,6 +10,7 @@ from .cosine import search
 from .cosine import index_search_cosine_sim_wine, index_search_cosine_sim_food
 from .utility import read_file, read_csv
 from enum import Enum
+from .mapping import generate_food_words 
 
 # STATES 
 
@@ -162,22 +163,41 @@ food_output: [List of dictionaries] (we can also do classes too)]
   ]
 
 """
-def from_wine_get_food(query):
+def from_wine_get_food(top_3_wines):
 
   # FAKE DATA - TODO: REPLACE 
-  food_output = [{"bucket" : "bold_red", 
-                  "words" : ["black pepper", "hard cheese"], 
-                  "recipes" : [ {"title": "Lentil, Apple, and Turkey Wrap", "rating": 2.5, "calories": 426.0},
-                                {"title": "Amazing recipe", "rating": 10, "calories": 800.0}]},
-                {"bucket" : "medium_red", 
-                  "words" : ["fungi", "something"], 
-                  "recipes" : [ {"title": "Some sort of yummy recipe", "rating": 2.5, "calories": 426.0},
-                                {"title": "yummy yummy yummy", "rating": 10, "calories": 800.0}]},
+  # food_output = [{"bucket" : "bold_red", 
+  #                 "words" : ["black pepper", "hard cheese"], 
+  #                 "recipes" : [ {"title": "Lentil, Apple, and Turkey Wrap", "rating": 2.5, "calories": 426.0},
+  #                               {"title": "Amazing recipe", "rating": 10, "calories": 800.0}]},
+  #               {"bucket" : "medium_red", 
+  #                 "words" : ["fungi", "something"], 
+  #                 "recipes" : [ {"title": "Some sort of yummy recipe", "rating": 2.5, "calories": 426.0},
+  #                               {"title": "yummy yummy yummy", "rating": 10, "calories": 800.0}]},
 
-                {"bucket" : "dessert", 
-                  "words" : ["fungi", "something"], 
-                  "recipes" : [ {"title": "Some sort of yummy recipe", "rating": 2.5, "calories": 426.0},
-                                {"title": "yummy yummy yummy", "rating": 10, "calories": 800.0}]}]
+  #               {"bucket" : "dessert", 
+  #                 "words" : ["fungi", "something"], 
+  #                 "recipes" : [ {"title": "Some sort of yummy recipe", "rating": 2.5, "calories": 426.0},
+  #                               {"title": "yummy yummy yummy", "rating": 10, "calories": 800.0}]}]
+  
+  food_output = []
 
+  for wine in top_3_wines:
+    bucket, words, foods = generate_food_words(wine['varietal'], wine['profile'])
+    print("Bucket", bucket)
+    foods = " ".join(foods)
+    recipes = index_search_cosine_sim_food(foods, inverted_index_food, doc_norms_food, idf_dict_food,
+                                                   recipe_id_to_title)
+    top_recipes = []
+    for recipe in recipes:
+      if recipe not in top_recipes:
+        top_recipes.append(recipe)
+    
+    result = {
+      "bucket" : bucket,
+      "words" : list(words),
+      "recipes" : top_recipes[:3]
+    }
+    food_output.append(result)
 
   return food_output
