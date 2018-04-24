@@ -1,0 +1,20 @@
+apiVersion: apps/v1beta2 
+kind: Deployment
+metadata:
+  name: uncorked
+spec:
+  selector:
+    matchLabels:
+      app: uncorked
+  replicas: 1
+  template: 
+    metadata:
+      labels:
+        app: uncorked
+    spec:
+      containers:
+      - name: uncorked
+        image: uncorked/app:v1
+        ports:
+        - containerPort: 8000
+
