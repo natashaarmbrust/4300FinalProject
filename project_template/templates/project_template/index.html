@@ -113,7 +113,9 @@ function search() {
 }
 
 function resetNewSearch() {
-  location.replace("http://127.0.0.1:8000/");
+  var base_url = window.location.origin;
+  console.log(base_url);
+  location.replace(base_url);
 }
 
 </script>
