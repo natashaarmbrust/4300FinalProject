@@ -22,8 +22,8 @@ RESULT_FOOD = 5
 
 state = START
 
-placeholder_wine = "Keyword examples: fruity, oak, Riesling, 2017, etc."
-placeholder_food = "Keyword examples: salmon, lemon, pepper, etc."
+placeholder_wine = "fruity, oak, Riesling, Pinot Noir, 2017 vintage, ..."
+placeholder_food = "salmon, lemon, pepper, almond, spicy, ..."
 search_description_food = "Describe your food ..."
 search_description_wine = "Describe your wine ..."
 
@@ -86,6 +86,7 @@ def result_wine(request):
                               {
                               "state": state,
                               "top_outputs" : top_wine_outputs,
+                              "no_output": len(top_wine_outputs) == 0
                               })
 
 
@@ -103,12 +104,26 @@ def result_food(request):
   # TODO: call backend method with search type to get top 3 foods based on query
   food_output = from_wine_get_food(top_3_wines)
 
+  best_choice = None
+  second_choice = None
+  third_choice = None
+
+  for i,out in enumerate(food_output):
+    if i == 0:
+      best_choice = food_output[i]
+    if i == 1:
+      second_choice = food_output[i]
+    if i == 2:
+      third_choice = food_output[i]
+
   return render_to_response('project_template/index.html',
                               {
                               # put outputs here
-                                'top_3_wines':top_3_wines,
+                              'top_3_wines':top_3_wines,
                               "state": state,
-                              "food_output" : food_output,
+                              "best_choice": best_choice,
+                              "second_choice": second_choice,
+                              "third_choice": third_choice,
                               })
 
 
@@ -170,19 +185,28 @@ food_output: [List of dictionaries] (we can also do classes too)]
 def from_wine_get_food(top_3_wines):
 
   # FAKE DATA - TODO: REPLACE 
-  # food_output = [{"bucket" : "bold_red", 
-  #                 "words" : ["black pepper", "hard cheese"], 
-  #                 "recipes" : [ {"title": "Lentil, Apple, and Turkey Wrap", "rating": 2.5, "calories": 426.0},
-  #                               {"title": "Amazing recipe", "rating": 10, "calories": 800.0}]},
-  #               {"bucket" : "medium_red", 
-  #                 "words" : ["fungi", "something"], 
-  #                 "recipes" : [ {"title": "Some sort of yummy recipe", "rating": 2.5, "calories": 426.0},
-  #                               {"title": "yummy yummy yummy", "rating": 10, "calories": 800.0}]},
+  food_output = [{"bucket" : "bold_red", 
+                  "words" : "black pepper, hard cheese", 
+                  "recipes" : [ 
+                      {
+                      "directions": 
+                      ["Blanch peas in medium saucepan of boiling salted water 1 minute. Add carrots and blanch 1 minute longer. Drain. Rinse under cold water. Drain well.", "Cook fettuccine in large pot of boiling salted water until pasta is tender but still firm to bite.", "Meanwhile, heat oil in large nonstick skillet over high heat. Sprinkle fish with salt and pepper. Add fish to skillet and saut\u00e9 until golden brown and almost cooked through, about 2 minutes. Using slotted spoon, transfer fish to plate. Tent with foil to keep warm. Add parsley and flour to skillet; stir 30 seconds. Add clam juice, broth, wine and lemon juice. Simmer until sauce thickens, stirring constantly, about 2 minutes. Add sugar snap peas and carrots; stir 1 minute. Add fish; stir gently until heated through, about 1 minute. Season with salt and pepper.", "Drain pasta. Divide among 4 plates. Spoon fish, vegetables and sauce over. Sprinkle with green onions and paprika. Serve with lemon wedges."], 
 
-  #               {"bucket" : "dessert", 
-  #                 "words" : ["fungi", "something"], 
-  #                 "recipes" : [ {"title": "Some sort of yummy recipe", "rating": 2.5, "calories": 426.0},
-  #                               {"title": "yummy yummy yummy", "rating": 10, "calories": 800.0}]}]
+                        "title": "Fettuccine with Swordfish and Sugar Snap Peas ", 
+
+                        "ingredients": 
+                        ["12 ounces sugar snap peas, trimmed", "2 medium carrots, peeled, cut into matchstick-size strips (about 2 cups)", "8 ounces fettuccine", "2 teaspoons olive oil", "1 pound skinless swordfish steaks, cut into 3/4-inch cubes", "3 tablespoons chopped fresh parsley", "1 tablespoon all purpose flour", "1/2 cup bottle clam juice", "1/2 cup canned low-salt chicken broth", "1/2 cup dry white wine", "1 1/2 tablespoons fresh lemon juice", "4 green onions, thinly sliced", "1/2 teaspoon paprika", "Lemon wedges"]
+                      },
+                    {"title": "Amazing recipe", "rating": 10, "calories": 800.0}]},
+                {"bucket" : "medium_red", 
+                  "words" : ["fungi", "something"], 
+                  "recipes" : [ {"title": "Some sort of yummy recipe", "rating": 2.5, "calories": 426.0},
+                                {"title": "yummy yummy yummy", "rating": 10, "calories": 800.0}]},
+
+                {"bucket" : "dessert", 
+                  "words" : ["fungi", "something"], 
+                  "recipes" : [ {"title": "Some sort of yummy recipe", "rating": 2.5, "calories": 426.0},
+                    {"title": "yummy yummy yummy", "rating": 10, "calories": 800.0}]}]
   
   food_output = []
 
@@ -199,7 +223,7 @@ def from_wine_get_food(top_3_wines):
     
     result = {
       "bucket" : bucket,
-      "words" : list(words),
+      "words" : ", ".join(list(words)),
       "recipes" : top_recipes[:3]
     }
 

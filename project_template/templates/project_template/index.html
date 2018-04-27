@@ -20,19 +20,30 @@
 
                 {% if state == 1 %}
                   <!-- Food/Wine buttons -->
+                  <p> Have a specific recipe in mind and don't know which wine to pair with it? <br><br>
+                  Or maybe you've picked up a bottle of Syrah at the store and want the perfect food to match it with? <br>
+
+                  <p> At <span id="searchTextSmall">UNCORKED</span>, we realize it can be extremely difficult to find a good food and wine pairing. Thankfully, we are here to help. We suggest food and wine pairings. Just search based on the characteristics of your food and/or wine and we handle the rest. Phew, that was <span id="searchTextSmall">DELICIOUS</span>.</p>
+
                   <h2>Search for a ... </h2>
                   <div id="displayButtons" class="row">
                     
                     <form method="get" id="pick-form">
 
                       <div class="col">
-                      <img src="/static/img/burger.png" class="button_photo" alt="food">
-                      <button class="button" name="search_food" type="button" value="food" onclick="pick(SearchType.FOOD)">Food pairing</button>
+                        <button class="button" name="search_food" type="button" value="food" onclick="pick(SearchType.FOOD)">
+                          <img src="/static/img/burger.png" class="button_photo" alt="food">
+                          <br>
+                          FOOD PAIRING
+                        </button>
                       </div>
 
                       <div class="col">
-                       <img src="/static/img/wineslogo.png" class="button_photo" alt="food">
-                      <button class="button" name="search_wine" type="button" value="wine" onclick="pick(SearchType.WINE)">Wine pairing</button>
+                        <button class="button" name="search_wine" type="button" value="wine" onclick="pick(SearchType.WINE)">
+                          <img src="/static/img/wineslogo.png" class="button_photo" alt="food">
+                          <br>
+                          WINE PAIRING
+                        </button>
                       </div>
                     </form>
                   </div>
@@ -48,9 +59,9 @@
                   <div class="col-md-6">
                     <form method="get" id="search-form">
                         <div class="input-group">
-                        <input type="text" class="form-control" name="q" placeholder="{{placeholder}}">
+                        <input type="text" class="form-control" id="searchInput" name="q" placeholder="{{placeholder}}">
                       <span class="input-group-btn">
-                      <button class="btn btn-default" type="button" onclick="search()">Go!</button></span>
+                      <button class="btn button buttonSearch" id="searchButton" type="button" onclick="search()">Go!</button></span>
                       </div>
                     </form>
                   </div>
@@ -64,38 +75,172 @@
 
         {% if state == 4 %}
 
-            <div id="food_recs" class="row">
-
-                {% for output in food_output %}
-                    <div class="col">
-                        <img src="/static/img/{{output.bucket}}_3.png" class="wine_pic" alt="wine photo"><br>
-                        Flavor Matches: &nbsp; {{output.words}}
-                        <br>
-                        {% for recipe in output.recipes %}
-                            <br>
-                            Recipe: {{recipe.title}}<br>
-<!--                             Calories: {{recipe.calories}}<br>
-                            Rating: {{recipe.rating}}<br> -->
-                        {% endfor %}
-                    </div>
-                {% endfor %}
+           {% if best_choice == None and second_choice == None and third_choice == None %}
+              <div class="row">
+                <br>
+                <br>
+                <br>
+                <span id="searchTextSmall"> NO PAIRINGS FOUND </span>
+              </div>
+              <div class="row">
+                <p>Uh oh! Please input a more specific search for better results.</p>
             </div>
-        {% endif %}
+            {% endif %}
+
+            {% if best_choice != None %}
+            <div class="row food_recs">
+
+              <div class="col wine_choice">
+
+                <div class="shorter">
+                  <h3> Our Suggestion </h3>
+
+                  <div class="padding">
+                    <img src="/static/img/{{best_choice.bucket}}_3.png" class="wine_pic" alt="wine photo">
+                  </div>
+                  <div class="padding flavor">
+                      <span id="searchTextSmall" >{{best_choice.words}}</span>
+                    </div>
+                </div>
+
+                <div class="col recipes">
+                {% for recipe in best_choice.recipes %}
+                  <div class="recipe">
+                    {{recipe.title}} 
+                    <div class="recipe-dropdown">
+                      <div class="col recipe-col">
+                        <h5>Ingredients</h5>
+                        <ul>
+                        {% for ingredient in recipe.ingredients %}
+                          <li>{{ingredient}}</li>
+                        {% endfor %}  
+                      </ul>
+                      </div>
+                      <div class="col recipe-col">
+                        <h5>Directions</h5>
+                        {% for direction in recipe.directions %}
+                          {{direction}}
+                        {% endfor %}  
+                      </div>
+                    </div>
+                  </div>
+                {% endfor %}
+                </div>
+                <!-- <button class="button" id="flavorButton" onclick="flavorPress()" style="padding: 10px; width: auto; height: auto; display: block;">Flavor Profile</button> -->
+              </div>
+            </div>
+
+            {% endif %}
+
+            <div class="row food_recs">
+
+            {% if second_choice != None %}
+              <div class="col wine_choice">
+                  <div class="shorter">
+                    <h3> Safe Bet </h3>
+                    <div class="padding">
+                      <img src="/static/img/{{second_choice.bucket}}_3.png" class="wine_pic" alt="wine photo">
+                    </div>
+                    <div class="padding flavor">
+                      <span id="searchTextSmall" >{{second_choice.words}}</span>
+                    </div>
+                  </div>
+
+                  <div class="col recipes">
+                  {% for recipe in second_choice.recipes %}
+                    <div class="recipe">
+                      {{recipe.title}} 
+                      <div class="recipe-dropdown">
+                        <div class="col recipe-col">
+                          <h5>Ingredients</h5>
+                          <ul>
+                          {% for ingredient in recipe.ingredients %}
+                            <li>{{ingredient}}</li>
+                          {% endfor %}  
+                        </ul>
+                        </div>
+                        <div class="col recipe-col">
+                          <h5>Directions</h5>
+                          {% for direction in recipe.directions %}
+                            {{direction}}
+                          {% endfor %}  
+                        </div>
+                      </div>
+                    </div>
+                  {% endfor %}
+                  </div>
+                  <!-- <button class="button" id="flavorButton" onclick="flavorPress()" style="padding: 10px; width: auto; height: auto; display: block;">Flavor Profile</button> -->
+                </div>
+
+            {% endif %}
+
+              
+            {% if third_choice != None %}
+              <div class="col wine_choice">
+                  <div class="shorter">
+                    <h3> Alternative Choice </h3>
+                    <div class="padding">
+                      <img src="/static/img/{{third_choice.bucket}}_3.png" class="wine_pic" alt="wine photo">
+                    </div>
+                    <div class="padding flavor">
+                      <span id="searchTextSmall" >{{third_choice.words}}</span>
+                    </div>
+                  </div>
+
+                  <div class="col recipes">
+                  {% for recipe in third_choice.recipes %}
+                    <div class="recipe">
+                      {{recipe.title}} 
+                      <div class="recipe-dropdown">
+                        <div class="col recipe-col">
+                          <h5>Ingredients</h5>
+                          <ul>
+                          {% for ingredient in recipe.ingredients %}
+                            <li>{{ingredient}}</li>
+                          {% endfor %}  
+                        </ul>
+                        </div>
+                        <div class="col recipe-col">
+                          <h5>Directions</h5>
+                          {% for direction in recipe.directions %}
+                            {{direction}}
+                          {% endfor %}  
+                        </div>
+                      </div>
+                    </div>
+                  {% endfor %}
+                  </div>
+                  <!-- <button class="button" id="flavorButton" onclick="flavorPress()" style="padding: 10px; width: auto; height: auto; display: block;">Flavor Profile</button> -->
+                </div>
+
+            {% endif %}
+
+          </div>
+
+      {% endif %}
 
         {% if state == 5 %}
           <div> Coming Soon! </div>
         {% endif %}
 
+
+
         {% if state != 1 %}
           <form method="get" id="reset">
-              <button class="button button1" name="new_search" type="button" value="new_search" onclick="resetNewSearch()">Try a new search</button>
+              <button class="button button1" name="new_search" type="button" value="new_search" onclick="resetNewSearch()">
+              <img src="/static/img/redo.png" alt=""/>
+              Try a new search
+            </button>
           </form>
         {% endif %}
-    </div>
+
+        </div>
+    
 </body>
 </html>
 
 <script>
+
 var SearchType = {FOOD: "food", WINE: "wine"};
 Object.freeze(SearchType);
 
@@ -107,7 +252,6 @@ function pick(value) {
 
 /* append which search type and submit form */
 function search() {
-  console.log({{state}})
   $('#search-form').attr('action', "/search/" + {{state}});
   $('#search-form').submit();
 }
@@ -116,6 +260,28 @@ function resetNewSearch() {
   var base_url = window.location.origin;
   location.replace(base_url);
 }
+
+function flavorPress() {
+  console.log("here")
+  $(".flavor").show();
+  $("#flavorButton").hide();
+}
+
+$('.recipe').on('click', event => {
+  var clickedElement = $(event.target);
+  clickedElement.find(".recipe-dropdown").toggle();
+  // $('.recipe-dropdown').toggle();
+});
+
+/* TODO: add enter functionality */
+// $("search-form").keyup(function(e) {
+//   console.log(e.keyCode)
+//   if (e.keyCode == 13) {
+//     console.log("13")
+//     e.preventDefault();
+//     $("#searchButton").click();
+//   }
+// });
 
 </script>
 
