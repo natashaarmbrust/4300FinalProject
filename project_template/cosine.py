@@ -10,6 +10,7 @@ import math
 from enum import Enum
 import os
 import nltk
+import spacy
 nltk.download('stopwords')
 nltk.download('averaged_perceptron_tagger')
 from nltk.corpus import stopwords
@@ -65,16 +66,20 @@ def index_search_cosine_sim_food(query, inverted_index, doc_norms, idf, index_to
 
     return final[:10]
 
-def wine_profile(descriptions):
-
+def wine_profile(description):
     stop_words=set(stopwords.words('english'))
-    remove_tags={"CD" , "RB", "VBZ", "VBD", "IN", "MD", "VBG", "VBP"}
-    prof=set(tokenize((descriptions)))
-    prof= prof - stop_words
-    tagged= nltk.pos_tag(prof)
+    doc=nlp(description.lower())
+    wordset=set()
+    chunks=[chunk.text for chunk in doc.noun_chunks]
+    remove_tags={"CD" , "RB", "VBZ", "VBD", "IN", "MD", "VBG", "VBP","PUNCT"}
+    for token in doc:
+        if(token.pos_ not in remove_tags and not token.is_stop):
+            wordset.add(token.lemma_)
+    chunkwords=set()
 
-    return [x[0] for x in tagged if x[1] not in remove_tags]
-
+    wordset.update(chunks)
+    return wordset-stop_words
+  
 def index_search_cosine_sim_wine(query, inverted_index, doc_norms, idf, raw_wine_data):
 
     query = tokenize(query.lower())
