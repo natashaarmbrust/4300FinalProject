@@ -93,15 +93,21 @@
               <div class="col wine_choice">
 
                 <div class="shorter">
-                  <h3> Our Suggestion </h3>
+                  <h3> Our Best Pick </h3>
 
                   <div class="padding">
                     <img src="/static/img/{{best_choice.bucket}}_3.png" class="wine_pic" alt="wine photo">
                   </div>
+                  <h4>Similar Wine Flavors</h4>
                   <div class="padding flavor">
                       <span id="searchTextSmall" >{{best_choice.words}}</span>
-                    </div>
+                  </div>
+                  <h4>Suggested Food Pairing Flavors</h4>
+                  <div class="padding flavor">
+                      <span id="searchTextSmall" style="color: #738543!important;" >{{best_choice.words}}</span>
+                  </div>
                 </div>
+
 
                 <div class="col recipes">
                 {% for recipe in best_choice.recipes %}
@@ -138,11 +144,16 @@
               <div class="col wine_choice">
                   <div class="shorter">
                     <h3> Safe Bet </h3>
-                    <div class="padding">
+                      <div class="padding">
                       <img src="/static/img/{{second_choice.bucket}}_3.png" class="wine_pic" alt="wine photo">
                     </div>
+                    <h4>Similar Wine Flavors</h4>
                     <div class="padding flavor">
                       <span id="searchTextSmall" >{{second_choice.words}}</span>
+                  </div>
+                    <h4>Suggested Food Pairing Flavors</h4>
+                    <div class="padding flavor">
+                      <span id="searchTextSmall" style="color: #738543!important;" >{{second_choice.words}}</span>
                     </div>
                   </div>
 
@@ -179,11 +190,16 @@
               <div class="col wine_choice">
                   <div class="shorter">
                     <h3> Alternative Choice </h3>
-                    <div class="padding">
+                      <div class="padding">
                       <img src="/static/img/{{third_choice.bucket}}_3.png" class="wine_pic" alt="wine photo">
                     </div>
+                    <h4>Similar Wine Flavors</h4>
                     <div class="padding flavor">
                       <span id="searchTextSmall" >{{third_choice.words}}</span>
+                  </div>
+                    <h4>Suggested Food Pairing Flavors</h4>
+                    <div class="padding flavor">
+                      <span id="searchTextSmall" style="color: #738543!important;" >{{third_choice.words}}</span>
                     </div>
                   </div>
 
@@ -273,15 +289,12 @@ $('.recipe').on('click', event => {
   // $('.recipe-dropdown').toggle();
 });
 
-/* TODO: add enter functionality */
-// $("search-form").keyup(function(e) {
-//   console.log(e.keyCode)
-//   if (e.keyCode == 13) {
-//     console.log("13")
-//     e.preventDefault();
-//     $("#searchButton").click();
-//   }
-// });
+/* for when enter is pressed to search */
+$('#searchInput').bind('keypress', function(event) {
+  if (event.keyCode == 13) { search(); return false; }
+  return true;
+});
+
 
 </script>
 

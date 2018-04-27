@@ -188,10 +188,10 @@ h2 {
 
 }
 
-.recipes h4 {
-  font-family: "Helvetica", sans-serif;
-  font-size: 14px;
-  color: #333;
+h4 {
+  font-family: "Helvetica", sans-serif !important;
+  font-size: 14px !important;
+  color: #333 !important;
 }
 
 .recipe {
