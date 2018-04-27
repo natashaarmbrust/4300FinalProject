@@ -93,18 +93,17 @@
               <div class="col wine_choice">
 
                 <div class="shorter">
-                  <h3> Our Best Pick </h3>
-
-                  <div class="padding">
-                    <img src="/static/img/{{best_choice.bucket}}_3.png" class="wine_pic" alt="wine photo">
-                  </div>
-                  <h4>Similar Wine Flavors</h4>
-                  <div class="padding flavor">
-                      <span id="searchTextSmall" >{{best_choice.words}}</span>
-                  </div>
-                  <h4>Suggested Food Pairing Flavors</h4>
-                  <div class="padding flavor">
-                      <span id="searchTextSmall" style="color: #738543!important;" >{{best_choice.words}}</span>
+                    <h3> Our Best Pick </h3>
+                      <div class="padding">
+                        <img src="/static/img/{{best_choice.bucket}}_3.png" class="wine_pic" alt="wine photo">
+                      </div>
+                      <h4>Similar Wine Flavors</h4>
+                      <div class="padding flavor">
+                      <span id="searchTextSmall">{{best_choice.words}}</span>
+                      </div>
+                      <h4>Suggested Food Pairing Flavors</h4>
+                        <div class="padding flavor">
+                        <span id="searchTextSmall" style="color: #738543!important;" >{{best_choice.words}}</span>
                   </div>
                 </div>
 
@@ -112,7 +111,8 @@
                 <div class="col recipes">
                 {% for recipe in best_choice.recipes %}
                   <div class="recipe">
-                    {{recipe.title}} 
+                    <img class="chevron" src="/static/img/down-chevron.png" alt=""/>
+                    {{recipe.title}}
                     <div class="recipe-dropdown">
                       <div class="col recipe-col">
                         <h5>Ingredients</h5>
@@ -160,6 +160,7 @@
                   <div class="col recipes">
                   {% for recipe in second_choice.recipes %}
                     <div class="recipe">
+                      <img class="chevron" src="/static/img/down-chevron.png" alt=""/>
                       {{recipe.title}} 
                       <div class="recipe-dropdown">
                         <div class="col recipe-col">
@@ -206,6 +207,7 @@
                   <div class="col recipes">
                   {% for recipe in third_choice.recipes %}
                     <div class="recipe">
+                      <img class="chevron" src="/static/img/down-chevron.png" alt=""/>
                       {{recipe.title}} 
                       <div class="recipe-dropdown">
                         <div class="col recipe-col">
@@ -278,7 +280,6 @@ function resetNewSearch() {
 }
 
 function flavorPress() {
-  console.log("here")
   $(".flavor").show();
   $("#flavorButton").hide();
 }
@@ -286,7 +287,12 @@ function flavorPress() {
 $('.recipe').on('click', event => {
   var clickedElement = $(event.target);
   clickedElement.find(".recipe-dropdown").toggle();
-  // $('.recipe-dropdown').toggle();
+  var image = clickedElement.find(".chevron");
+  if (image.attr("src") == "/static/img/up-chevron.png") {
+    image.attr("src", "/static/img/down-chevron.png")
+  } else {
+    image.attr("src", "/static/img/up-chevron.png")
+  }
 });
 
 /* for when enter is pressed to search */

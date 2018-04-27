@@ -160,6 +160,7 @@ h2 {
 }
 
 .wine_choice img {
+  display: inline-block;
   height: 200px;
 }
 
@@ -174,7 +175,7 @@ h2 {
 }
 
 .shorter {
-  width: 300px;
+  width: 350px;
   margin: auto;
 }
 
@@ -198,7 +199,7 @@ h4 {
     width: 400px;
     padding: 16px 32px;
     border: solid 0.5px #4A1314;
-    text-align: center;
+    text-align: left;
     text-decoration: none;
     font-size: 16px;
     margin: 4px 2px;
@@ -236,6 +237,11 @@ h4 {
 .recipe-col ul {
   list-style: none;
   padding-left: 0px;
+}
+
+.recipe img {
+  height: 15px;
+  padding-right: 10px;
 }
 
 /*.flavor {

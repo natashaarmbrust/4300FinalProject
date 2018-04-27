@@ -104,6 +104,10 @@ def result_food(request):
   # TODO: call backend method with search type to get top 3 foods based on query
   food_output = from_wine_get_food(top_3_wines)
 
+  # 
+  # MARK - KEEP THIS FORMAT FOR FRONTEND 
+  #
+
   best_choice = None
   second_choice = None
   third_choice = None
@@ -115,6 +119,8 @@ def result_food(request):
       second_choice = food_output[i]
     if i == 2:
       third_choice = food_output[i]
+    if i > 2:
+      break
 
   return render_to_response('project_template/index.html',
                               {
@@ -223,7 +229,7 @@ def from_wine_get_food(top_3_wines):
     
     result = {
       "bucket" : bucket,
-      "words" : ", ".join(list(words)),
+      "words" : ", ".join(list(words)[:10]), # NOTE - words should be a string spereated by commas (and also we should probably reduce it to like 10 elements)
       "recipes" : top_recipes[:3]
     }
 
