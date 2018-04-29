@@ -14,6 +14,7 @@ import spacy
 nltk.download('stopwords')
 nltk.download('averaged_perceptron_tagger')
 from nltk.corpus import stopwords
+nlp = spacy.load('en')
 
 
 from .utility import read_file,read_csv,tokenize
@@ -67,6 +68,7 @@ def index_search_cosine_sim_food(query, inverted_index, doc_norms, idf, index_to
     return final[:10]
 
 def wine_profile(description):
+    
     stop_words=set(stopwords.words('english'))
     doc=nlp(description.lower())
     wordset=set()
