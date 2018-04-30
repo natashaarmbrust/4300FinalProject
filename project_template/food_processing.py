@@ -74,7 +74,7 @@ def build_inverted_index_food_json(msgs):
                 else:
                     inverted_index[word][str(doc_idx)] += 1
 
-            doc_idx += 1
+        doc_idx += 1
 
     for word in inverted_index:
         inverted_index[word] = list(inverted_index[word].items())
