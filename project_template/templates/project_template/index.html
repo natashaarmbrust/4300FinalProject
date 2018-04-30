@@ -102,7 +102,7 @@
                         <div style="color: #ccc; font-size: 10px; margin-top: -10px">based on search</div>
                         <div class="recipe">
                           <img class="chevron" src="/static/img/down-chevron.png" alt=""/>
-                        {{best_choice.wine.title}} 
+                          {{best_choice.wine.title}}
                           <div class="recipe-dropdown">
                             <div class="col recipe-col wine-col">
                               <ul>
@@ -119,11 +119,11 @@
                         <br><br>
                         <blockquote>
                           {{best_choice.wine.description}}
-                        <br> - Sommelier 
+                        <br> - {{best_choice.wine.sommelier}}, Sommelier 
                         </blockquote>
                       </div>
                     <div class="shorter">
-                      <h4>Suggested Food Pairing Flavors</h4>
+                      <h4>Suggested Food Pairing Flavors:</h4>
                         <div class="padding flavor">
                         <span id="searchTextSmall" style="color: #738543!important;" >{{best_choice.food.words}}</span>
                         </div>
@@ -131,6 +131,7 @@
 
 
                 <div class="col recipes">
+                  <h4>Suggested Recipes:</h4>
                 {% for recipe in best_choice.food.recipes %}
                   <div class="recipe">
                     <img class="chevron" src="/static/img/down-chevron.png" alt=""/>
@@ -164,94 +165,143 @@
 
             {% if second_choice != None %}
               <div class="col wine_choice">
-                  <div class="shorter">
                     <h3> Safe Bet </h3>
+                    <div class="padding">
+                        <img src="/static/img/{{second_choice.food.bucket}}_3.png" class="wine_pic" alt="wine photo">
+                      </div>
                       <div class="padding">
-                      <img src="/static/img/{{second_choice.bucket}}_3.png" class="wine_pic" alt="wine photo">
+                        <h4>Most Similar Wine: </h4>
+                        <div style="color: #ccc; font-size: 10px; margin-top: -10px">based on search</div>
+                        <div class="recipe">
+                          <img class="chevron" src="/static/img/down-chevron.png" alt=""/>
+                        {{second_choice.wine.title}} 
+                          <div class="recipe-dropdown">
+                            <div class="col recipe-col wine-col">
+                              <ul>
+                                <li>Winery: {{second_choice.wine.winery}}</li>
+                                <li>Variety: {{second_choice.wine.varietal}}</li>
+                                <li>Region: {{second_choice.wine.region}}</li>
+                                <li>Province: {{second_choice.wine.province}}</li>
+                                <li>Country:  {{second_choice.wine.country}}</li>
+                                <li>Price: {{second_choice.wine.price}}</li>
+                                <li>Points: {{second_choice.wine.points}}</li>
+                              </ul>
+                            </div>
+                          </div>
+                        <br><br>
+                        <blockquote>
+                          {{second_choice.wine.description}}
+                        <br> - {{second_choice.wine.sommelier}}, Sommelier 
+                        </blockquote>
+                      </div>
+                    <div class="shorter">
+                      <h4>Suggested Food Pairing Flavors:</h4>
+                        <div class="padding flavor">
+                        <span id="searchTextSmall" style="color: #738543!important;" >{{second_choice.food.words}}</span>
+                        </div>
                     </div>
-                    <h4>Similar Wine Flavors</h4>
-                    <div class="padding flavor">
-                      <span id="searchTextSmall" >{{second_choice.words}}</span>
-                  </div>
-                    <h4>Suggested Food Pairing Flavors</h4>
-                    <div class="padding flavor">
-                      <span id="searchTextSmall" style="color: #738543!important;" >{{second_choice.words}}</span>
-                    </div>
-                  </div>
 
-                  <div class="col recipes">
-                  {% for recipe in second_choice.recipes %}
-                    <div class="recipe">
-                      <img class="chevron" src="/static/img/down-chevron.png" alt=""/>
-                      {{recipe.title}} 
-                      <div class="recipe-dropdown">
-                        <div class="col recipe-col">
-                          <h5>Ingredients</h5>
-                          <ul>
-                          {% for ingredient in recipe.ingredients %}
-                            <li>{{ingredient}}</li>
-                          {% endfor %}  
-                        </ul>
-                        </div>
-                        <div class="col recipe-col">
-                          <h5>Directions</h5>
-                          {% for direction in recipe.directions %}
-                            {{direction}}
-                          {% endfor %}  
-                        </div>
+
+                <div class="col recipes">
+                  <h4>Suggested Recipes:</h4>
+                {% for recipe in second_choice.food.recipes %}
+                  <div class="recipe">
+                    <img class="chevron" src="/static/img/down-chevron.png" alt=""/>
+                    {{recipe.title}}
+                    <div class="recipe-dropdown">
+                      <div class="col recipe-col">
+                        <h5>Ingredients</h5>
+                        <ul>
+                        {% for ingredient in recipe.ingredients %}
+                          <li>{{ingredient}}</li>
+                        {% endfor %}  
+                      </ul>
+                      </div>
+                      <div class="col recipe-col">
+                        <h5>Directions</h5>
+                        {% for direction in recipe.directions %}
+                          {{direction}}
+                        {% endfor %}  
                       </div>
                     </div>
-                  {% endfor %}
                   </div>
-                  <!-- <button class="button" id="flavorButton" onclick="flavorPress()" style="padding: 10px; width: auto; height: auto; display: block;">Flavor Profile</button> -->
+                {% endfor %}
                 </div>
+                <!-- <button class="button" id="flavorButton" onclick="flavorPress()" style="padding: 10px; width: auto; height: auto; display: block;">Flavor Profile</button> -->
+              </div>
+            </div>
 
             {% endif %}
 
               
             {% if third_choice != None %}
               <div class="col wine_choice">
-                  <div class="shorter">
                     <h3> Alternative Choice </h3>
                       <div class="padding">
-                      <img src="/static/img/{{third_choice.bucket}}_3.png" class="wine_pic" alt="wine photo">
+                        <img src="/static/img/{{third_choice.food.bucket}}_3.png" class="wine_pic" alt="wine photo">
+                      </div>
+                      <div class="padding">
+                        <h4>Most Similar Wine: </h4>
+                        <div style="color: #ccc; font-size: 10px; margin-top: -10px">based on search</div>
+                        <div class="recipe">
+                          <img class="chevron" src="/static/img/down-chevron.png" alt=""/>
+                        {{third_choice.wine.title}} 
+                          <div class="recipe-dropdown">
+                            <div class="col recipe-col wine-col">
+                              <ul>
+                                <li>Winery: {{third_choice.wine.winery}}</li>
+                                <li>Variety: {{third_choice.wine.varietal}}</li>
+                                <li>Region: {{third_choice.wine.region}}</li>
+                                <li>Province: {{third_choice.wine.province}}</li>
+                                <li>Country:  {{third_choice.wine.country}}</li>
+                                <li>Price: {{third_choice.wine.price}}</li>
+                                <li>Points: {{third_choice.wine.points}}</li>
+                              </ul>
+                            </div>
+                          </div>
+                        <br><br>
+                        <blockquote>
+                          {{third_choice.wine.description}}
+                        <br> - {{third_choice.wine.sommelier}}, Sommelier 
+                        </blockquote>
+                      </div>
+                    <div class="shorter">
+                      <h4>Suggested Food Pairing Flavors:</h4>
+                        <div class="padding flavor">
+                        <span id="searchTextSmall" style="color: #738543!important;" >{{third_choice.food.words}}</span>
+                        </div>
                     </div>
-                    <h4>Similar Wine Flavors</h4>
-                    <div class="padding flavor">
-                      <span id="searchTextSmall" >{{third_choice.words}}</span>
-                  </div>
-                    <h4>Suggested Food Pairing Flavors</h4>
-                    <div class="padding flavor">
-                      <span id="searchTextSmall" style="color: #738543!important;" >{{third_choice.words}}</span>
-                    </div>
-                  </div>
 
-                  <div class="col recipes">
-                  {% for recipe in third_choice.recipes %}
-                    <div class="recipe">
-                      <img class="chevron" src="/static/img/down-chevron.png" alt=""/>
-                      {{recipe.title}} 
-                      <div class="recipe-dropdown">
-                        <div class="col recipe-col">
-                          <h5>Ingredients</h5>
-                          <ul>
-                          {% for ingredient in recipe.ingredients %}
-                            <li>{{ingredient}}</li>
-                          {% endfor %}  
-                        </ul>
-                        </div>
-                        <div class="col recipe-col">
-                          <h5>Directions</h5>
-                          {% for direction in recipe.directions %}
-                            {{direction}}
-                          {% endfor %}  
-                        </div>
+
+                <div class="col recipes">
+                  <h4>Suggested Recipes:</h4>
+                {% for recipe in third_choice.food.recipes %}
+                  <div class="recipe">
+                    <img class="chevron" src="/static/img/down-chevron.png" alt=""/>
+                    {{recipe.title}}
+                    <div class="recipe-dropdown">
+                      <div class="col recipe-col">
+                        <h5>Ingredients</h5>
+                        <ul>
+                        {% for ingredient in recipe.ingredients %}
+                          <li>{{ingredient}}</li>
+                        {% endfor %}  
+                      </ul>
+                      </div>
+                      <div class="col recipe-col">
+                        <h5>Directions</h5>
+                        {% for direction in recipe.directions %}
+                          {{direction}}
+                        {% endfor %}  
                       </div>
                     </div>
-                  {% endfor %}
                   </div>
-                  <!-- <button class="button" id="flavorButton" onclick="flavorPress()" style="padding: 10px; width: auto; height: auto; display: block;">Flavor Profile</button> -->
+                {% endfor %}
                 </div>
+                <!-- <button class="button" id="flavorButton" onclick="flavorPress()" style="padding: 10px; width: auto; height: auto; display: block;">Flavor Profile</button> -->
+              </div>
+            </div>
+
 
             {% endif %}
 
