@@ -166,23 +166,23 @@ class SearchType(Enum):
     FOOD = 1
     WINE = 2
 
-def search(query, searchType):
-  output = ""
-
-  if searchType == SearchType.WINE:
-    # wine_title, varieties, description, profile = index_search_cosine_sim_wine(query, inverted_index_wine, doc_norms_wine, idf_dict_wine, wine_data)
-    wine_output = index_search_cosine_sim_wine(query, inverted_index_wine, doc_norms_wine, idf_dict_wine, wine_data)
-    for wine in range(len(wine_output)):
-        food_words = generate_food_words(wine_output[wine]['varietal'])
-        food_words = " ".join(food_words)
-        food_output = index_search_cosine_sim_food(food_words, inverted_index_food, doc_norms_food, idf_dict_food,
-                                                   recipe_id_to_title)
-        wine_output[wine]['food'] = food_output[:3]
-
-
-
-  elif searchType == SearchType.FOOD:
-    output = index_search_cosine_sim_food(query, inverted_index_food, doc_norms_food, idf_dict_food, recipe_id_to_title)
-
-  return wine_output
+# def search(query, searchType):
+#   output = ""
+#
+#   if searchType == SearchType.WINE:
+#     # wine_title, varieties, description, profile = index_search_cosine_sim_wine(query, inverted_index_wine, doc_norms_wine, idf_dict_wine, wine_data)
+#     wine_output = index_search_cosine_sim_wine(query, inverted_index_wine, doc_norms_wine, idf_dict_wine, wine_data)
+#     for wine in range(len(wine_output)):
+#         food_words = generate_food_words(wine_output[wine]['varietal'])
+#         food_words = " ".join(food_words)
+#         food_output = index_search_cosine_sim_food(food_words, inverted_index_food, doc_norms_food, idf_dict_food,
+#                                                    recipe_id_to_title)
+#         wine_output[wine]['food'] = food_output[:3]
+#
+#
+#
+#   elif searchType == SearchType.FOOD:
+#     output = index_search_cosine_sim_food(query, inverted_index_food, doc_norms_food, idf_dict_food, recipe_id_to_title)
+#
+#   return wine_output
   # return output, wine_title, varieties, description, profile

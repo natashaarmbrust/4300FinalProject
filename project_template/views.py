@@ -6,7 +6,7 @@ from django.template import loader
 from .form import QueryForm
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from .cosine import SearchType
-from .cosine import search
+# from .cosine import search
 from .cosine import index_search_cosine_sim_wine, index_search_cosine_sim_food
 from .utility import read_file, read_csv
 from enum import Enum
@@ -89,16 +89,37 @@ def result_wine(request):
   query = request.GET.get('q')
   state = RESULT_FOOD
   # Replace with actual outputs
-  top_wine_outputs = []
-  if query:
-      # TODO 
-      top_wine_outputs = ['Wine 1', 'Wine2', 'Wine3']
-  
+
+  top3foods = index_search_cosine_sim_food(query,inverted_index_food,doc_norms_food,idf_dict_food,food_data)
+
+  wine_output = from_food_get_wine(top3foods)
+
+  # top_wine_outputs = []
+  # if query:
+  #     # TODO
+  #     top_wine_outputs = ['Wine 1', 'Wine2', 'Wine3']
+
+  best_choice = None
+  second_choice = None
+  third_choice = None
+
+  for i, out in enumerate(wine_output):
+      if i == 0:
+          best_choice = wine_output[i]
+      if i == 1:
+          second_choice = wine_output[i]
+      if i == 2:
+          third_choice = wine_output[i]
+      if i > 2:
+          break
+
   return render_to_response('project_template/index.html',
                               {
                               "state": state,
-                              "top_outputs" : top_wine_outputs,
-                              "no_output": len(top_wine_outputs) == 0
+                                'top_3_foods':top3foods,
+                                  "best_choice": best_choice,
+                                  "second_choice": second_choice,
+                                  "third_choice": third_choice,
                               })
 
 
