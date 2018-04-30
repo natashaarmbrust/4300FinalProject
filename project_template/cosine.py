@@ -9,13 +9,13 @@ from collections import Counter
 import math
 from enum import Enum
 import os
-import nltk
-import spacy
-nltk.download('stopwords')
-nltk.download('averaged_perceptron_tagger')
-from nltk.corpus import stopwords
-nlp = spacy.load('en')
-from stop_words import stop_words
+# import nltk
+# import spacy
+# nltk.download('stopwords')
+# nltk.download('averaged_perceptron_tagger')
+# from nltk.corpus import stopwords
+# nlp = spacy.load('en')
+# from stop_words import stop_words
 
 
 from .utility import read_file,read_csv,tokenize
@@ -68,20 +68,20 @@ def index_search_cosine_sim_food(query, inverted_index, doc_norms, idf, index_to
 
     return final[:10]
 
-def wine_profile(description):
+# def wine_profile(description):
     
-    total_stop_words=set(stopwords.words('english')).union(set(stop_words))
-    doc=nlp(description.lower())
-    wordset=set()
-    chunks=[chunk.text for chunk in doc.noun_chunks]
-    remove_tags={"CD" , "RB", "VBZ", "VBD", "IN", "MD", "VBG", "VBP","PUNCT"}
-    for token in doc:
-        if(token.pos_ not in remove_tags and not token.is_stop):
-            wordset.add(token.lemma_)
-    chunkwords=set()
+#     total_stop_words=set(stopwords.words('english')).union(set(stop_words))
+#     doc=nlp(description.lower())
+#     wordset=set()
+#     chunks=[chunk.text for chunk in doc.noun_chunks]
+#     remove_tags={"CD" , "RB", "VBZ", "VBD", "IN", "MD", "VBG", "VBP","PUNCT"}
+#     for token in doc:
+#         if(token.pos_ not in remove_tags and not token.is_stop):
+#             wordset.add(token.lemma_)
+#     chunkwords=set()
 
-    wordset.update(chunks)
-    return wordset-total_stop_words
+#     wordset.update(chunks)
+#     return wordset-total_stop_words
   
 def index_search_cosine_sim_wine(query, inverted_index, doc_norms, idf, raw_wine_data):
 

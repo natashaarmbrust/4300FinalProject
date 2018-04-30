@@ -34,7 +34,7 @@
                         <button class="button" name="search_food" type="button" value="food" onclick="pick(SearchType.FOOD)">
                           <img src="/static/img/burger.png" class="button_photo" alt="food">
                           <br>
-                          FOOD PAIRING
+                          FIND FOOD TO PAIR <br> WITH YOUR WINE
                         </button>
                       </div>
 
@@ -42,7 +42,7 @@
                         <button class="button" name="search_wine" type="button" value="wine" onclick="pick(SearchType.WINE)">
                           <img src="/static/img/wineslogo.png" class="button_photo" alt="food">
                           <br>
-                          WINE PAIRING
+                          FIND WINE TO PAIR <br> WITH YOUR FOOD
                         </button>
                       </div>
                     </form>
@@ -92,24 +92,46 @@
 
               <div class="col wine_choice">
 
-                <div class="shorter">
+                
                     <h3> Our Best Pick </h3>
                       <div class="padding">
-                        <img src="/static/img/{{best_choice.bucket}}_3.png" class="wine_pic" alt="wine photo">
+                        <img src="/static/img/{{best_choice.food.bucket}}_3.png" class="wine_pic" alt="wine photo">
                       </div>
-                      <h4>Similar Wine Flavors</h4>
-                      <div class="padding flavor">
-                      <span id="searchTextSmall">{{best_choice.words}}</span>
+                      <div class="padding">
+                        <h4>Most Similar Wine: </h4>
+                        <div style="color: #ccc; font-size: 10px; margin-top: -10px">based on search</div>
+                        <div class="recipe">
+                          <img class="chevron" src="/static/img/down-chevron.png" alt=""/>
+                        {{best_choice.wine.title}} 
+                          <div class="recipe-dropdown">
+                            <div class="col recipe-col wine-col">
+                              <ul>
+                                <li>Winery: {{best_choice.wine.winery}}</li>
+                                <li>Variety: {{best_choice.wine.varietal}}</li>
+                                <li>Region: {{best_choice.wine.region}}</li>
+                                <li>Province: {{best_choice.wine.province}}</li>
+                                <li>Country:  {{best_choice.wine.country}}</li>
+                                <li>Price: {{best_choice.wine.price}}</li>
+                                <li>Points: {{best_choice.wine.points}}</li>
+                              </ul>
+                            </div>
+                          </div>
+                        <br><br>
+                        <blockquote>
+                          {{best_choice.wine.description}}
+                        <br> - Sommelier 
+                        </blockquote>
                       </div>
+                    <div class="shorter">
                       <h4>Suggested Food Pairing Flavors</h4>
                         <div class="padding flavor">
-                        <span id="searchTextSmall" style="color: #738543!important;" >{{best_choice.words}}</span>
-                  </div>
-                </div>
+                        <span id="searchTextSmall" style="color: #738543!important;" >{{best_choice.food.words}}</span>
+                        </div>
+                    </div>
 
 
                 <div class="col recipes">
-                {% for recipe in best_choice.recipes %}
+                {% for recipe in best_choice.food.recipes %}
                   <div class="recipe">
                     <img class="chevron" src="/static/img/down-chevron.png" alt=""/>
                     {{recipe.title}}

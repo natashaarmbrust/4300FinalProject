@@ -29,15 +29,18 @@ search_description_wine = "Describe your wine ..."
 
 # Wine Data
 #wine_data = read_file(4)
-wine_data = read_file(22)
+
 #inverted_index_wine = read_file(12)
 inverted_index_wine = read_file(23)
-num_docs_wine = len(wine_data)
+
 # idf_dict_wine = read_file(13)
 idf_dict_wine = read_file(24)
 # doc_norms_wine = read_file(14)
 doc_norms_wine = read_file(25)
-
+print("files loaded")
+wine_data = read_file(22)
+print("files loaded?")
+num_docs_wine = len(wine_data)
 
 # Food Data
 food_data = read_csv(15)
@@ -118,19 +121,19 @@ def result_food(request):
   third_choice = None
 
   for i,out in enumerate(food_output):
+    output = {"food": food_output[i], "wine": top_3_wines[i]}
     if i == 0:
-      best_choice = food_output[i]
+      best_choice = output
     if i == 1:
-      second_choice = food_output[i]
+      second_choice = output
     if i == 2:
-      third_choice = food_output[i]
+      third_choice = output
     if i > 2:
       break
 
   return render_to_response('project_template/index.html',
                               {
                               # put outputs here
-                              'top_3_wines':top_3_wines,
                               "state": state,
                               "best_choice": best_choice,
                               "second_choice": second_choice,
