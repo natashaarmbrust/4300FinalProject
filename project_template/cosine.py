@@ -45,7 +45,7 @@ def compute_doc_norms(index, idf, n_docs):
   doc_norms1 = np.sqrt(doc_norms)
   return doc_norms1
 
-def index_search_cosine_sim_food(query, inverted_index, doc_norms, idf, index_to_title):
+def index_search_cosine_sim_food(query, inverted_index, doc_norms, idf, raw_food_data):
     query = tokenize(query.lower())
     score_query_doc = dict()
     query_norm = 0
@@ -63,10 +63,23 @@ def index_search_cosine_sim_food(query, inverted_index, doc_norms, idf, index_to
         score_query_doc[doc] = score_query_doc[doc] / (query_norm * doc_norms[int(doc)])
 
     sorted_by_second = sorted(list(score_query_doc.items()), key=lambda tup: tup[1], reverse=True)
-    
-    final = [{"title": index_to_title[str(k)]} for k, v in sorted_by_second]
 
-    return final[:10]
+    food_output = []
+    num = min(len(score_query_doc), 3)
+    for i in range(num):
+        doc_id = sorted_by_second[i][0]
+        doc_score = sorted_by_second[i][1]
+
+        title = raw_food_data[int(doc_id)]['title']
+        ingredients = raw_food_data[int(doc_id)]['ingredients']
+        directions = raw_food_data[int(doc_id)]['directions']
+
+        food_output.append(
+            { 'title': title,'ingredients':ingredients,'directions':directions})
+    return food_output
+    # final = [{"title": index_to_title[str(k)]} for k, v in sorted_by_second]
+    #
+    # return final[:10]
 
 def wine_profile(description):
     

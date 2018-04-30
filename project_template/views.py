@@ -40,12 +40,19 @@ doc_norms_wine = read_file(25)
 
 
 # Food Data
-food_data = read_csv(15)
-inverted_index_food = read_file(16)
+# food_data = read_csv(15)
+food_data = read_file(5)
+
+# inverted_index_food = read_file(16)
+inverted_index_food = read_file(26)
+
 recipe_id_to_title = read_file(17)
 num_docs_food = len(food_data)
-idf_dict_food = read_file(18)
-doc_norms_food = read_file(19)
+# idf_dict_food = read_file(18)
+idf_dict_food = read_file(27)
+
+# doc_norms_food = read_file(19)
+doc_norms_food = read_file(28)
 
 # Create your views here.
 def index(request):
@@ -226,7 +233,7 @@ def from_wine_get_food(top_3_wines):
     print("Bucket", bucket)
     foods = " ".join(foods)
     recipes = index_search_cosine_sim_food(foods, inverted_index_food, doc_norms_food, idf_dict_food,
-                                                   recipe_id_to_title)
+                                                   food_data)
     top_recipes = []
     for recipe in recipes:
       if recipe not in top_recipes:
