@@ -28,11 +28,16 @@ search_description_food = "Describe your food ..."
 search_description_wine = "Describe your wine ..."
 
 # Wine Data
-wine_data = read_file(4)
-inverted_index_wine = read_file(12)
+#wine_data = read_file(4)
+wine_data = read_file(22)
+#inverted_index_wine = read_file(12)
+inverted_index_wine = read_file(23)
 num_docs_wine = len(wine_data)
-idf_dict_wine = read_file(13)
-doc_norms_wine = read_file(14)
+# idf_dict_wine = read_file(13)
+idf_dict_wine = read_file(24)
+# doc_norms_wine = read_file(14)
+doc_norms_wine = read_file(25)
+
 
 # Food Data
 food_data = read_csv(15)
