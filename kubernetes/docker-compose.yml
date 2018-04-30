@@ -1,2 +1,4 @@
 uncorked:
-    image: uncorked/app:v1.4
+  ports:
+    - "8000:8000"
+  image: uncorked/app:v1.8

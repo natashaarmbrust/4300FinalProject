@@ -8,6 +8,7 @@
   border-bottom: solid;
   border-color: #4A1314;
   margin: auto;
+  display: inline-block;
 }
 
 .container p {
@@ -260,6 +261,22 @@ h4 {
 .wine-col ul {
   margin-bottom: 0px !important;
   padding-bottom: 0px !important;
+}
+
+#about {
+  display: inline-block;
+  margin-left: 10px;
+  margin-bottom: 0px;
+  width: 15px;
+  height: 15px;
+}
+
+#about:hover {
+  display: inline-block;
+  margin-left: 10px;
+  margin-bottom: 0px;
+  width: 15px;
+  height: 15px;
 }
 
 /*.flavor {

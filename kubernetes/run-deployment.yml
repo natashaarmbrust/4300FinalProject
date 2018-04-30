@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: uncorked
-        image: uncorked/app:v4
+        image: uncorked/app:v8
         ports:
         - containerPort: 8000
 
