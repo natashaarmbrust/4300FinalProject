@@ -8,9 +8,11 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from .cosine import SearchType
 # from .cosine import search
 from .cosine import index_search_cosine_sim_wine, index_search_cosine_sim_food
-from .utility import read_file, read_csv
+from .utility import read_file, read_csv, tokenize
 from enum import Enum
 from .mapping import generate_food_words, generate_wine_words
+
+
 
 # STATES 
 
@@ -26,6 +28,18 @@ placeholder_wine = "fruity, oak, Riesling, Pinot Noir, 2017 vintage, ..."
 placeholder_food = "salmon, lemon, pepper, almond, spicy, ..."
 search_description_food = "Describe your food ..."
 search_description_wine = "Describe your wine ..."
+
+#SVD data
+#need to save this
+# food_words_compressed = read_file()
+# food_word_to_index = read_file()
+# food_index_to_word = read_file()
+
+
+wine_words_compressed = read_file()
+wine_word_to_index = read_file()
+wine_index_to_word = read_file()
+
 
 # Wine Data
 #wine_data = read_file(4)
@@ -130,6 +144,8 @@ def result_food(request):
   state = RESULT_WINE
   # TODO: call backend method with search type to get top 3 foods based on query
   query = request.GET.get('q')
+  query=expand_query(tokenize(query), wine_words_compressed, wine_word_to_index, wine_index_to_word)
+
   # Replace with actual outputs
   buckets = []
   recipes = []
