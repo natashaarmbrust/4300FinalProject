@@ -135,8 +135,9 @@ def index_search_cosine_sim_wine(query, inverted_index, doc_norms, idf, raw_wine
         region = raw_wine_data[int(doc_id)]['region_1']
         country = raw_wine_data[int(doc_id)]['country']
         province = raw_wine_data[int(doc_id)]['province']
+        sommelier = raw_wine_data[int(doc_id)]['taster_name']
 
-        wine_output.append({'points':points,'price':price,'region':region,'country':country,'province':province,'winery':winery,'title':title,'varietal':varietals, 'description':description,'profile':profile})
+        wine_output.append({'sommelier':sommelier,'points':points,'price':price,'region':region,'country':country,'province':province,'winery':winery,'title':title,'varietal':varietals, 'description':description,'profile':profile})
     return wine_output
 
 
