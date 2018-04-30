@@ -8,6 +8,8 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
 
     </head>
     
@@ -15,15 +17,22 @@
 
     <div class="container">
     <h1 id="searchText">UNCORKED</h1>
+    <img src="/static/img/about.png" id="about" alt=""/>
+      <p id="names" class="animated pulse" style="display: none; color: #ccc;">Natasha Armbrust, nka8<br>
+      Karim Arem, ka295<br>
+      Foteini Kriezi, fk233<br>
+      Liane Longpre, lfl42<br>
+      Ilan Mandel, im334<br>
+      </p>
         <div class="row">
             <div class="col-12">
 
                 {% if state == 1 %}
                   <!-- Food/Wine buttons -->
-                  <p> Have a specific recipe in mind and don't know which wine to pair with it? <br><br>
+                  <p class="animated tada"> Have a specific recipe in mind and don't know which wine to pair with it? <br><br>
                   Or maybe you've picked up a bottle of Syrah at the store and want the perfect food to match it with? <br>
 
-                  <p> At <span id="searchTextSmall">UNCORKED</span>, we realize it can be extremely difficult to find a good food and wine pairing. Thankfully, we are here to help. We suggest food and wine pairings. Just search based on the characteristics of your food and/or wine and we handle the rest. Phew, that was <span id="searchTextSmall">DELICIOUS</span>.</p>
+                  <p class="animated tada"> At <span id="searchTextSmall">UNCORKED</span>, we realize it can be extremely difficult to find a good food and wine pairing. Thankfully, we are here to help. We suggest food and wine pairings. Just search based on the characteristics of your food and/or wine and we handle the rest. Phew, that was <span id="searchTextSmall">DELICIOUS</span>.</p>
 
                   <h2>Search for a ... </h2>
                   <div id="displayButtons" class="row">
@@ -119,7 +128,11 @@
                         <br><br>
                         <blockquote>
                           {{best_choice.wine.description}}
-                        <br> - {{best_choice.wine.sommelier}}, Sommelier 
+                        {% if best_choice.wine.sommelier != None %}
+                          <br> - {{best_choice.wine.sommelier}}, Sommelier 
+                        {% else %}
+                          <br> - Sommelier 
+                        {% endif %}
                         </blockquote>
                       </div>
                     <div class="shorter">
@@ -191,7 +204,11 @@
                         <br><br>
                         <blockquote>
                           {{second_choice.wine.description}}
-                        <br> - {{second_choice.wine.sommelier}}, Sommelier 
+                        {% if best_choice.wine.sommelier != None %}
+                          <br> - {{second_choice.wine.sommelier}}, Sommelier 
+                        {% else %}
+                          <br> - Sommelier 
+                        {% endif %}
                         </blockquote>
                       </div>
                     <div class="shorter">
@@ -262,7 +279,11 @@
                         <br><br>
                         <blockquote>
                           {{third_choice.wine.description}}
-                        <br> - {{third_choice.wine.sommelier}}, Sommelier 
+                        {% if third_choice.wine.sommelier != None %}
+                          <br> - {{third_choice.wine.sommelier}}, Sommelier 
+                        {% else %}
+                          <br> - Sommelier 
+                        {% endif %}
                         </blockquote>
                       </div>
                     <div class="shorter">
@@ -386,7 +407,11 @@
                     <br><br>
                    <blockquote>
                           {{best_choice.wine.description}}
-                   <br> - {{best_choice.wine.sommelier}}, Sommelier 
+                   {% if best_choice.wine.sommelier != None %}
+                          <br> - {{best_choice.wine.sommelier}}, Sommelier 
+                    {% else %}
+                          <br> - Sommelier 
+                    {% endif %}
                    </blockquote>
                 </div>
                 <!-- <button class="button" id="flavorButton" onclick="flavorPress()" style="padding: 10px; width: auto; height: auto; display: block;">Flavor Profile</button> -->
@@ -459,7 +484,11 @@
                     <br><br>
                    <blockquote>
                           {{second_choice.wine.description}}
-                   <br> - {{second_choice.wine.sommelier}}, Sommelier 
+                   {% if second_choice.wine.sommelier != None %}
+                          <br> - {{second_choice.wine.sommelier}}, Sommelier 
+                    {% else %}
+                          <br> - Sommelier 
+                    {% endif %}
                    </blockquote>
                   </div>
                 </div>
@@ -528,7 +557,11 @@
                     <br><br>
                    <blockquote>
                           {{third_choice.wine.description}}
-                   <br> - {{third_choice.wine.sommelier}}, Sommelier 
+                   {% if third_choice.wine.sommelier != None %}
+                          <br> - {{third_choice.wine.sommelier}}, Sommelier 
+                    {% else %}
+                          <br> - Sommelier 
+                    {% endif %} 
                    </blockquote>
                   </div>
                 </div>
@@ -549,8 +582,7 @@
             </button>
           </form>
         {% endif %}
-
-        </div>
+    </div>
     
 </body>
 </html>
@@ -581,6 +613,14 @@ function flavorPress() {
   $(".flavor").show();
   $("#flavorButton").hide();
 }
+
+$("#about").on("mouseover", event => {
+  $("#names").show();
+});
+
+$("#about").on("mouseout", event => {
+  $("#names").hide();
+});
 
 $('.recipe').on('click', event => {
   var clickedElement = $(event.target);
