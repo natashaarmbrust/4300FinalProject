@@ -73,9 +73,11 @@ def index_search_cosine_sim_food(query, inverted_index, doc_norms, idf, raw_food
         title = raw_food_data[int(doc_id)]['title']
         ingredients = raw_food_data[int(doc_id)]['ingredients']
         directions = raw_food_data[int(doc_id)]['directions']
+        calories = raw_food_data[int(doc_id)]['calories']
+        rating = raw_food_data[int(doc_id)]['rating']
 
         food_output.append(
-            { 'title': title,'ingredients':ingredients,'directions':directions})
+            {'rating':rating,'calories':calories, 'title': title,'ingredients':ingredients,'directions':directions})
     return food_output
     # final = [{"title": index_to_title[str(k)]} for k, v in sorted_by_second]
     #
