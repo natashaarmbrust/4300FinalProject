@@ -310,6 +310,21 @@
       {% endif %}
 
         {% if state == 5 %}
+
+          {% if best_choice == None and second_choice == None and third_choice == None %}
+              <div class="row">
+                <br>
+                <br>
+                <br>
+                <span id="searchTextSmall"> NO PAIRINGS FOUND </span>
+              </div>
+              <div class="row">
+                <p>Uh oh! Please input a more specific search for better results.</p>
+            </div>
+          {% endif %}
+
+          {% if best_choice != None %}
+
           <div class="row food_recs">
 
               <div class="col wine_choice">
@@ -378,6 +393,8 @@
                 </div>
               </div>
             </div>
+
+            {% endif %}
 
 
             <div class="row food_recs">
