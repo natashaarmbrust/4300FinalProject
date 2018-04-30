@@ -45,7 +45,7 @@ def compute_doc_norms(index, idf, n_docs):
   doc_norms1 = np.sqrt(doc_norms)
   return doc_norms1
 
-def index_search_cosine_sim_food(query, inverted_index, doc_norms, idf, index_to_title):
+def index_search_cosine_sim_food(query, inverted_index, doc_norms, idf, raw_food_data):
     query = tokenize(query.lower())
     score_query_doc = dict()
     query_norm = 0
@@ -63,10 +63,25 @@ def index_search_cosine_sim_food(query, inverted_index, doc_norms, idf, index_to
         score_query_doc[doc] = score_query_doc[doc] / (query_norm * doc_norms[int(doc)])
 
     sorted_by_second = sorted(list(score_query_doc.items()), key=lambda tup: tup[1], reverse=True)
-    
-    final = [{"title": index_to_title[str(k)]} for k, v in sorted_by_second]
 
-    return final[:10]
+    food_output = []
+    num = min(len(score_query_doc), 3)
+    for i in range(num):
+        doc_id = sorted_by_second[i][0]
+        doc_score = sorted_by_second[i][1]
+
+        title = raw_food_data[int(doc_id)]['title']
+        ingredients = raw_food_data[int(doc_id)]['ingredients']
+        directions = raw_food_data[int(doc_id)]['directions']
+        calories = raw_food_data[int(doc_id)]['calories']
+        rating = raw_food_data[int(doc_id)]['rating']
+
+        food_output.append(
+            {'rating':rating,'calories':calories, 'title': title,'ingredients':ingredients,'directions':directions})
+    return food_output
+    # final = [{"title": index_to_title[str(k)]} for k, v in sorted_by_second]
+    #
+    # return final[:10]
 
 # def wine_profile(description):
     
@@ -120,8 +135,9 @@ def index_search_cosine_sim_wine(query, inverted_index, doc_norms, idf, raw_wine
         region = raw_wine_data[int(doc_id)]['region_1']
         country = raw_wine_data[int(doc_id)]['country']
         province = raw_wine_data[int(doc_id)]['province']
+        sommelier = raw_wine_data[int(doc_id)]['taster_name']
 
-        wine_output.append({'points':points,'price':price,'region':region,'country':country,'province':province,'winery':winery,'title':title,'varietal':varietals, 'description':description,'profile':profile})
+        wine_output.append({'sommelier':sommelier,'points':points,'price':price,'region':region,'country':country,'province':province,'winery':winery,'title':title,'varietal':varietals, 'description':description,'profile':profile})
     return wine_output
 
 
@@ -151,23 +167,23 @@ class SearchType(Enum):
     FOOD = 1
     WINE = 2
 
-def search(query, searchType):
-  output = ""
-
-  if searchType == SearchType.WINE:
-    # wine_title, varieties, description, profile = index_search_cosine_sim_wine(query, inverted_index_wine, doc_norms_wine, idf_dict_wine, wine_data)
-    wine_output = index_search_cosine_sim_wine(query, inverted_index_wine, doc_norms_wine, idf_dict_wine, wine_data)
-    for wine in range(len(wine_output)):
-        food_words = generate_food_words(wine_output[wine]['varietal'])
-        food_words = " ".join(food_words)
-        food_output = index_search_cosine_sim_food(food_words, inverted_index_food, doc_norms_food, idf_dict_food,
-                                                   recipe_id_to_title)
-        wine_output[wine]['food'] = food_output[:3]
-
-
-
-  elif searchType == SearchType.FOOD:
-    output = index_search_cosine_sim_food(query, inverted_index_food, doc_norms_food, idf_dict_food, recipe_id_to_title)
-
-  return wine_output
+# def search(query, searchType):
+#   output = ""
+#
+#   if searchType == SearchType.WINE:
+#     # wine_title, varieties, description, profile = index_search_cosine_sim_wine(query, inverted_index_wine, doc_norms_wine, idf_dict_wine, wine_data)
+#     wine_output = index_search_cosine_sim_wine(query, inverted_index_wine, doc_norms_wine, idf_dict_wine, wine_data)
+#     for wine in range(len(wine_output)):
+#         food_words = generate_food_words(wine_output[wine]['varietal'])
+#         food_words = " ".join(food_words)
+#         food_output = index_search_cosine_sim_food(food_words, inverted_index_food, doc_norms_food, idf_dict_food,
+#                                                    recipe_id_to_title)
+#         wine_output[wine]['food'] = food_output[:3]
+#
+#
+#
+#   elif searchType == SearchType.FOOD:
+#     output = index_search_cosine_sim_food(query, inverted_index_food, doc_norms_food, idf_dict_food, recipe_id_to_title)
+#
+#   return wine_output
   # return output, wine_title, varieties, description, profile
