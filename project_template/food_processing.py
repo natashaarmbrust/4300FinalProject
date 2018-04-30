@@ -55,3 +55,27 @@ def build_inverted_index_food(data):
           inverted_index[t].append((i,1))
 
     return inverted_index, index_to_title
+
+def build_inverted_index_food(msgs):
+    inverted_index = dict()
+    doc_idx = 0
+
+    for food in msgs:
+        if 'title' in food:
+            s = ' '
+            string_list = [food['title']] + list(food['ingredients']) + list(food['categories'])
+            wine_tokens = tokenize(s.join(filter(None, string_list)))
+            for word in wine_tokens:
+                if word not in inverted_index:
+                    inverted_index[word] = dict()
+                    inverted_index[word][str(doc_idx)] = 1
+                elif str(doc_idx) not in inverted_index[word]:
+                    inverted_index[word][str(doc_idx)] = 1
+                else:
+                    inverted_index[word][str(doc_idx)] += 1
+
+            doc_idx += 1
+
+    for word in inverted_index:
+        inverted_index[word] = list(inverted_index[word].items())
+    return inverted_index
