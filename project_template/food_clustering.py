@@ -31,21 +31,37 @@ doc_by_vocab = tfidf_vec.fit_transform(cats).toarray()
 
 index_to_vocab = {i:v for i, v in enumerate(tfidf_vec.get_feature_names())}
 
-true_k = 30
+true_k = 60
 model = KMeans(n_clusters=true_k, init='k-means++', max_iter=100, n_init=1)
 model.fit(doc_by_vocab)
+
+# cluster_range = range( 1, 100 )
+# cluster_errors = []
+# import matplotlib.pyplot as plt
+
+# for num_clusters in cluster_range:
+#     clusters = KMeans(n_clusters=num_clusters, init='k-means++', max_iter=50, n_init=1)
+#     clusters.fit(doc_by_vocab)
+#     cluster_errors.append( clusters.inertia_ )
+#     print(num_clusters)
+
+# clusters_df = pd.DataFrame( { "num_clusters":cluster_range, "cluster_errors": cluster_errors } )
+# print(clusters_df[0:10])
+# plt.figure(figsize=(12,6))
+# plt.plot( clusters_df.num_clusters, clusters_df.cluster_errors, marker = "o" )
+# plt.show()
 
 print("Top terms per cluster:")
 order_centroids = model.cluster_centers_.argsort()[:, ::-1]
 terms = tfidf_vec.get_feature_names()
 for i in range(true_k):
     print("Cluster %d:" % i),
-    for ind in order_centroids[i, :50]:
+    for ind in order_centroids[i, :10]:
         print(' %s' % terms[ind]), 
     print("\n")
 print(model.labels_)
-# print(silhouette_score(doc_by_vocab, model.labels_))
+print(silhouette_score(doc_by_vocab, model.labels_))
 
-# with open("food_cluster_labels.csv", 'w') as myfile:
-#     wr = csv.writer(myfile, quoting=csv.QUOTE_ALL)
-#     wr.writerow(model.labels_)
+with open("food_cluster_labels.csv", 'w') as myfile:
+    wr = csv.writer(myfile, quoting=csv.QUOTE_ALL)
+    wr.writerow(model.labels_)
