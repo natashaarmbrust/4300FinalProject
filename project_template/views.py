@@ -49,7 +49,7 @@ food_data = read_file(5)
 # inverted_index_food = read_file(16)
 inverted_index_food = read_file(26)
 
-recipe_id_to_title = read_file(17)
+# recipe_id_to_title = read_file(17)
 num_docs_food = len(food_data)
 # idf_dict_food = read_file(18)
 idf_dict_food = read_file(27)
