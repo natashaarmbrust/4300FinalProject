@@ -1,6 +1,6 @@
 import numpy as np
 # from pandas import read_csv
-from .utility import read_csv
+from .utility import read_csv,tokenize
 
 
 
@@ -152,15 +152,17 @@ def generate_food_words(varietal, wine_words):
 
 def extract_food_types(food_words):
     ### HERE INCORPORATE THESAURUS
-	threshold = .2
+	threshold = 0
 	food_types = []
 	scores = [(f_type,similarity(words,food_words)) for f_type,words in food_buckets.items()]
 	scores.sort(key=lambda x: x[1], reverse=True) 
-	for (f_type, score) in scores:
-		if score >= threshold:
-			food_types.append(f_type)
-		else:
-			break
+	# for (f_type, score) in scores:
+	# 	if score >= threshold:
+	# 		food_types.append(f_type)
+	# 	else:
+	# 		break
+	if scores[0][1] >= threshold:
+		food_types.append(scores[0][0])
 	return food_types
 
 def food_to_wine(food):
@@ -179,7 +181,7 @@ def generate_wine_words(food_words, recipe):
 		for an input set of food description words. '''	
 
 	recipe = tokenize(recipe.lower())
-	food_words = [word.lower() for word in food_words]
+	food_words = [word.lower() for word in food_words] + recipe
 
 	wine_words = set()
 	food_types = extract_food_types(food_words)
@@ -198,37 +200,38 @@ def generate_wine_words(food_words, recipe):
 	# 	wine_words = set.difference(wine_words, taste_descriptors['sweet'])
 
     ### HERE INCORPORATE THESAURUS
-	not_rich = True
-	for word in taste_descriptors['rich']:
-		if word in food_words and not_rich:
-			wine_words = set.union(wine_words, taste_descriptors['rich'], taste_descriptors['acidic'])
-			not_rich = False
+	# not_rich = True
+	# for word in taste_descriptors['rich']:
+	# 	if word in food_words and not_rich:
+	# 		wine_words = set.union(wine_words, taste_descriptors['rich'], taste_descriptors['acidic'])
+	# 		not_rich = False
+    #
+	# not_sweet = True
+	# for word in taste_descriptors['sweet']:
+	# 	if word in food_words and not_sweet:
+	# 		wine_words = set.union(wine_words, taste_descriptors['fruity'])
+	# 		not_sweet = False
+    #
+	# not_sweet = True
+	# for word in taste_descriptors['fruity']:
+	# 	if word in food_words and not_sweet:
+	# 		wine_words = set.union(wine_words, taste_descriptors['sweet'])
+	# 		not_sweet = False
+    #
+	# not_sour = True
+	# for word in taste_descriptors['acidic']:
+	# 	if word in food_words and not_sour:
+	# 		wine_words = set.union(wine_words, taste_descriptors['sour'])
+	# 		not_sour = False
+    #
+	# not_sour = True
+	# for word in taste_descriptors['sour']:
+	# 	if word in food_words and not_sour:
+	# 		wine_words = set.union(wine_words, taste_descriptors['acidic'])
+	# 		not_sour = False
+    #
+	# if 'bitter' in food_words:
+	# 	wine_words = set.difference(wine_words, taste_descriptors['tannin'])
 
-	not_sweet = True
-	for word in taste_descriptors['sweet']:
-		if word in food_words and not_sweet:
-			wine_words = set.union(wine_words, taste_descriptors['fruity'])
-			not_sweet = False
-
-	not_sweet = True
-	for word in taste_descriptors['fruity']:
-		if word in food_words and not_sweet:
-			wine_words = set.union(wine_words, taste_descriptors['sweet'])
-			not_sweet = False
-
-	not_sour = True
-	for word in taste_descriptors['acidic']:
-		if word in food_words and not_sour:
-			wine_words = set.union(wine_words, taste_descriptors['sour'])
-			not_sour = False
-
-	not_sour = True
-	for word in taste_descriptors['sour']:
-		if word in food_words and not_sour:
-			wine_words = set.union(wine_words, taste_descriptors['acidic'])
-			not_sour = False
-
-	if 'bitter' in food_words:
-		wine_words = set.difference(wine_words, taste_descriptors['tannin'])
-
-	return list(wine_words)
+	# return list(wine_words) + food_words
+	return food_words + list(wine_words)

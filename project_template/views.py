@@ -47,15 +47,15 @@ num_docs_wine = len(wine_data)
 food_data = read_file(5)
 
 # inverted_index_food = read_file(16)
-inverted_index_food = read_file(26)
+inverted_index_food = read_file(29)
 
 # recipe_id_to_title = read_file(17)
 num_docs_food = len(food_data)
 # idf_dict_food = read_file(18)
-idf_dict_food = read_file(27)
+idf_dict_food = read_file(30)
 
 # doc_norms_food = read_file(19)
-doc_norms_food = read_file(28)
+doc_norms_food = read_file(31)
 
 # Create your views here.
 def index(request):
@@ -185,8 +185,10 @@ def from_food_get_wine(top_3_foods):
   
   for recipe in top_3_foods:
     # ingredients = recipe['ingredients']
+    print(recipe['title'])
     flavors = generate_wine_words(recipe['categories'],recipe['title'])
     flavors = " ".join(flavors)
+    print(flavors)
     top_wines = index_search_cosine_sim_wine(flavors,inverted_index_wine,doc_norms_wine,idf_dict_wine,wine_data)
 
     wine_output.append(top_wines[0])
