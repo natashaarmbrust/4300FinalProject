@@ -80,6 +80,14 @@ words = [('flavors', 2),
  ('nice', 2527),
  ('balanced', 2458),
  ('whiff', 2399),
+ ('2015', 2),
+ ('2016', 2),
+ ('2017', 2),	 
+ ('2018', 2),	 
+ ('2019', 2),
+ ('dol', 2),	 
+ ('10', 2),
+ ('\'s', 2),
  ('subtle', 2394),
  ('structured', 2355),
  ('end', 2338),
@@ -460,7 +468,7 @@ pairs = [('it', 85973),
  ('an aperitif', 253),
  ('highlights', 253),
  ('the table', 251),
- ('quince', 249)]
+]
 
 def parse(word_list):
 	return [item[0] for item in word_list]
