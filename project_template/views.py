@@ -10,7 +10,7 @@ from .cosine import SearchType
 from .cosine import index_search_cosine_sim_wine, index_search_cosine_sim_food
 from .utility import read_file, read_csv
 from enum import Enum
-from .mapping import generate_food_words 
+from .mapping import generate_food_words, generate_wine_words
 
 # STATES 
 
@@ -172,9 +172,26 @@ def result_food(request):
 
 
 """
+top3foods = [{
+  rating, calories, title, ingredients, directions, categories
+},...]
+
+output = [{},...] result from cosine_sim
+
 """
-def from_food_get_wine(query):
-  pass
+def from_food_get_wine(top_3_foods):
+  
+  wine_output = []
+  
+  for recipe in top_3_foods:
+    # ingredients = recipe['ingredients']
+    flavors = generate_wine_words(recipe['categories'],recipe['title'])
+    flavors = " ".join(flavors)
+    top_wines = index_search_cosine_sim_wine(flavors,inverted_index_wine,doc_norms_wine,idf_dict_wine,wine_data)
+
+    wine_output.append(top_wines[0])
+
+  return wine_output
 
 
 
@@ -225,31 +242,7 @@ food_output: [List of dictionaries] (we can also do classes too)]
 
 """
 def from_wine_get_food(top_3_wines):
-
-  # FAKE DATA - TODO: REPLACE 
-  food_output = [{"bucket" : "bold_red", 
-                  "words" : "black pepper, hard cheese", 
-                  "recipes" : [ 
-                      {
-                      "directions": 
-                      ["Blanch peas in medium saucepan of boiling salted water 1 minute. Add carrots and blanch 1 minute longer. Drain. Rinse under cold water. Drain well.", "Cook fettuccine in large pot of boiling salted water until pasta is tender but still firm to bite.", "Meanwhile, heat oil in large nonstick skillet over high heat. Sprinkle fish with salt and pepper. Add fish to skillet and saut\u00e9 until golden brown and almost cooked through, about 2 minutes. Using slotted spoon, transfer fish to plate. Tent with foil to keep warm. Add parsley and flour to skillet; stir 30 seconds. Add clam juice, broth, wine and lemon juice. Simmer until sauce thickens, stirring constantly, about 2 minutes. Add sugar snap peas and carrots; stir 1 minute. Add fish; stir gently until heated through, about 1 minute. Season with salt and pepper.", "Drain pasta. Divide among 4 plates. Spoon fish, vegetables and sauce over. Sprinkle with green onions and paprika. Serve with lemon wedges."], 
-
-                        "title": "Fettuccine with Swordfish and Sugar Snap Peas ", 
-
-                        "ingredients": 
-                        ["12 ounces sugar snap peas, trimmed", "2 medium carrots, peeled, cut into matchstick-size strips (about 2 cups)", "8 ounces fettuccine", "2 teaspoons olive oil", "1 pound skinless swordfish steaks, cut into 3/4-inch cubes", "3 tablespoons chopped fresh parsley", "1 tablespoon all purpose flour", "1/2 cup bottle clam juice", "1/2 cup canned low-salt chicken broth", "1/2 cup dry white wine", "1 1/2 tablespoons fresh lemon juice", "4 green onions, thinly sliced", "1/2 teaspoon paprika", "Lemon wedges"]
-                      },
-                    {"title": "Amazing recipe", "rating": 10, "calories": 800.0}]},
-                {"bucket" : "medium_red", 
-                  "words" : ["fungi", "something"], 
-                  "recipes" : [ {"title": "Some sort of yummy recipe", "rating": 2.5, "calories": 426.0},
-                                {"title": "yummy yummy yummy", "rating": 10, "calories": 800.0}]},
-
-                {"bucket" : "dessert", 
-                  "words" : ["fungi", "something"], 
-                  "recipes" : [ {"title": "Some sort of yummy recipe", "rating": 2.5, "calories": 426.0},
-                    {"title": "yummy yummy yummy", "rating": 10, "calories": 800.0}]}]
-  
+ 
   food_output = []
 
   for wine in top_3_wines:

@@ -10,7 +10,7 @@ from .utility import read_csv
 mapping_chart = read_csv(20)
 
 wine_buckets = {
-	'sparkling' : set(['champagne','prosecco','sparkling blend']),
+	'sparkling' : set(['champagne','prosecco','sparkling blend','champagne blend']),
 	'dessert' : set(['port','sherry','muscat','dessert','eiswein','madeira']),
 	'sweet_white' : set(['moscato','riesling','chenin blanc','gewurztraminer','muscadelle','white blend']),
 	'light_white' : set(['pinot blanc','pinot gris','sauvignon blanc','pinot grigio','trebbiano','sylvaner']),
@@ -95,10 +95,6 @@ def similarity(set1, set2):
 def get_wine_bucket(wine_words):
     scores = [(wine,similarity(words,wine_words)) for wine,words in wine_buckets.items()]
     scores.sort(key=lambda x: x[1], reverse=True) 
-    # print(similarity(set([wine_words]),wine_buckets['light_white']))
-    # print(similarity(wine_buckets['light_white'],set([wine_words])))
-    # print(scores)
-    # print(wine_words)
     return scores[0][0]
     # threshold = .0001
     # buckets = []
@@ -176,11 +172,14 @@ def food_to_wine(food):
     wine_types = mapping_chart.keys()[wine_indices+1]
     return set(wine_types)
 
-def generate_wine_words(food_words, fat, sodium):
+def generate_wine_words(food_words, recipe):
 	''' Input: list of strings
 		Output: list of strings
 		Function returns the relevant wine description words 
 		for an input set of food description words. '''	
+
+	recipe = tokenize(recipe.lower())
+	food_words = [word.lower() for word in food_words]
 
 	wine_words = set()
 	food_types = extract_food_types(food_words)
@@ -189,15 +188,14 @@ def generate_wine_words(food_words, fat, sodium):
 		for wine in wine_types:
 			wine_words = set.union(wine_words, wine_buckets[wine])        
 
-	salt_threshold = 800
+	# salt_threshold = 800
+	# if sodium > salt_threshold:
+	# 	wine_words = set.union(wine_words, taste_descriptors['sweet'], taste_descriptors['sour'])
 
-	if sodium > salt_threshold:
-		wine_words = set.union(wine_words, taste_descriptors['sweet'], taste_descriptors['sour'])
-
-	fat_threshold = 15        
-	if fat > fat_threshold:
-		wine_words = set.union(wine_words, taste_descriptors['tannin'], taste_descriptors['acidic'], taste_descriptors['rich'])
-		wine_words = set.difference(wine_words, taste_descriptors['sweet'])
+	# fat_threshold = 15        
+	# if fat > fat_threshold:
+	# 	wine_words = set.union(wine_words, taste_descriptors['tannin'], taste_descriptors['acidic'], taste_descriptors['rich'])
+	# 	wine_words = set.difference(wine_words, taste_descriptors['sweet'])
 
     ### HERE INCORPORATE THESAURUS
 	not_rich = True
