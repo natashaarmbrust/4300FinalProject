@@ -34,7 +34,7 @@ def wine_profile(description):
     return wordset-stop_words
 
 
-tfidf_vec = TfidfVectorizer(tokenizer=wine_profile, max_features=200000,max_df=.3, min_df=.005, norm="l2")
+tfidf_vec = TfidfVectorizer(stop_words=total_stop_words, tokenizer=wine_profile, max_features=200000,max_df=.3, min_df=.005, norm="l2")
 
 doc_by_vocab = tfidf_vec.fit_transform(data['description']).toarray()
 
