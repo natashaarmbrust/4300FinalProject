@@ -56,7 +56,7 @@ def build_inverted_index_food(data):
 
     return inverted_index, index_to_title
 
-def build_inverted_index_food(msgs):
+def build_inverted_index_food_json(msgs):
     inverted_index = dict()
     doc_idx = 0
 
