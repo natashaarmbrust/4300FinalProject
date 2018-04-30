@@ -70,7 +70,7 @@ def index_search_cosine_sim_food(query, inverted_index, doc_norms, idf, index_to
 
 def wine_profile(description):
     
-    stop_words=set(stopwords.words('english')).union(set(stop_words))
+    total_stop_words=set(stopwords.words('english')).union(set(stop_words))
     doc=nlp(description.lower())
     wordset=set()
     chunks=[chunk.text for chunk in doc.noun_chunks]
@@ -81,7 +81,7 @@ def wine_profile(description):
     chunkwords=set()
 
     wordset.update(chunks)
-    return wordset-stop_words
+    return wordset-total_stop_words
   
 def index_search_cosine_sim_wine(query, inverted_index, doc_norms, idf, raw_wine_data):
 
