@@ -1,0 +1,32 @@
+Top terms per cluster:
+Cluster 0:  blackberry  currant  cherry  tannin  oak  dry  sweet  blackberries  rich  chocolate  good  soft  cabernet  black  drink  year  tannic  cherries  ripe  jam  alcohol  show  like  smoky  cab  flavors  currants  taste  pepper  little  cassis  high  raspberry  finish  fine  the tannins  cedar  cellar  syrah  mocha  spice  jammy  red  complex  the wine  age  delicious  's  zin  cola
+
+Cluster 1:  palate  aromas  tannin  aroma  alongside  espresso  black  cherry  offer  licorice  toast  coffee  dry  plum  lead  underbrush  the palate  oak  open  spice  note  vanilla  astringent  grain  mature  the nose  nose  drink  sage  firm  bean  whiff  prune  pepper  herb  leather  deliver  finish  skinned  dark  clove  berry  blackberry  ripe  tobacco  a whiff  close  mocha  grill  leave
+
+Cluster 2:  finish  apple  lemon  palate  lime  citrus  the palate  aroma  the finish  note  fresh  pear  dry  green  grapefruit  peach  melon  acidity  flavors  white  clean  light  riesling  orange  hint  tangerine  zesty  tart  crisp  drink  stone  long  feel  mineral  sweet  ripe  touch  blanc  honey  floral  slightly  freshness  blossom  peel  this wine  tropical  refreshing  linger  balance  bright
+
+Cluster 3:  crisp  acidity  fresh  fruity  bright  drink  light  aftertaste  apple  citrus  texture  lively  character  tangy  the wine  tight  attractive  ready  lemon  touch  green  red  mineral  refreshing  this wine  ripe  fruitiness  dry  give  delicious  crisp acidity  clean  grapefruit  balance  screwcap  the end  white  pear  end  currant  great  blend  textur  lightly  good  edge  soft  a touch  rosé  perfume
+
+Cluster 4:  cabernet  sauvignon  merlot  blend  franc  %  cabernet sauvignon  verdot  petit  tannin  malbec  syrah  cherry  black  this blend  cabernet franc  aroma  a blend  blackberry  finish  spice  red  herb  chocolate  palate  dark  note  plum  this wine  oak  currant  sangiovese  cassis  aromas  dry  drink  the palate  offer  berry  tobacco  soft  ripe  show  the finish  vanilla  10  pepper  the blend  cedar  bordeaux
+
+Cluster 5:  tannin  structure  firm  drink  black  dense  age  ripe  acidity  rich  the wine  dark  juicy  solid  tannins  wood  year  2018  powerful  this wine  dry  structured  need  currant  character  develop  concentrated  berry  plum  2017  balance  core  potential  red  aging  a wine  show  texture  great  young  2019  fine  tannic  give  firm tannins  the tannins  pack  good  fruitiness  weight
+
+Cluster 6:  pineapple  chardonnay  sweet  vanilla  apricot  peach  acidity  tropical  honey  oak  orange  toast  rich  pear  buttered  flavors  creamy  crisp  ripe  dry  finish  apple  good  mango  lemon  balance  lime  like  blanc  style  butter  citrus  drink  show  taste  white  's  note  clean  butterscotch  oaky  aroma  caramel  price  simple  cream  viognier  this wine  blend  sauvignon
+
+Cluster 7:  bodied  medium  finish  aroma  texture  cherry  note  tannin  light  the finish  oak  black  ripe  palate  like  dry  spice  red  this wine  drink  vanilla  soft  acidity  rich  flavors  the palate  hint  balance  dark  good  linger  plum  smooth  blackberry  offer  taste  sweet  fresh  apple  textur  spicy  hints  raspberry  savory  pepper  aromas  long  slightly  herb  color
+
+Cluster 8:  wood  rich  age  ripe  character  acidity  drink  the wine  texture  give  year  aging  this wine  spice  balance  richness  yellow  smooth  mineral  2017  a wine  great  show  need  intense  tight  young  2018  toast  structure  edge  touch  good  2016  fruitiness  apple  come  apricot  fine  citrus  rounded  the acidity  generous  delicious  red  ready  fresh  weight  aged  fruity
+
+Cluster 9:  white  peach  flower  aroma  citrus  palate  offer  apple  stone  aromas  yellow  almond  acidity  pear  mineral  note  bright  alongside  open  white peach  fresh  crisp  stone fruit  lemon  creamy  zest  finish  hint  a hint  close  deliver  nectarine  spring  honey  the palate  vibrant  apricot  lead  dry  green  delicate  herb  clean  whiff  blossom  melon  bright acidity  sparkler  pair  juicy
+
+Cluster 10:  ready  soft  drink  fruity  acidity  attractive  ripe  red  light  tannin  the wine  character  juicy  fresh  texture  berry  rounded  smooth  touch  soft tannins  aftertaste  rich  this wine  fruitiness  balance  gentle  bright  warm  give  spice  currant  structure  the end  generous  edge  end  black  lightly  easy  perfume  strawberry  blend  apple  crisp  a wine  young  round  dry  a touch  red fruits
+
+Cluster 11:  nose  the nose  palate  the palate  finish  note  bottling  aroma  show  touch  dry  this bottling  cherry  apple  the finish  fresh  black  plum  red  lemon  light  spice  this wine  acidity  ripe  hint  pear  offer  a touch  flavors  pepper  citrus  sip  white  dark  green  tart  freshness  sweet  vanilla  blackberry  berry  clean  lime  raspberry  bit  blend  lead  drink  peach
+
+Cluster 12:  finish  aroma  berry  plum  feel  the finish  herbal  palate  flavors  note  the palate  oak  blackberry  black  earthy  spice  oaky  tannic  drink  rubbery  cherry  cassis  red  taste  chocolate  aromas  raspberry  spicy  come  bit  dark  tannin  good  toasty  baked  herb  jammy  hard  vanilla  heavy  ripe  chunky  smell  roasted  green  grabby  the mouth  mouth  peppery  tomato
+
+Cluster 13:  cherry  aroma  spice  tannin  finish  black  red  this wine  note  raspberry  dark  show  's  berry  oak  vineyard  dry  herb  the wine  %  light  offer  soft  chocolate  palate  blend  good  bright  the finish  tart  the palate  pepper  plum  ripe  sweet  strawberry  syrah  tobacco  aromas  vanilla  acidity  barrel  cola  color  leather  cranberry  drink  flavors  smoke  texture
+
+Cluster 14:  cherry  palate  tannin  berry  alongside  aroma  pepper  red  offer  black  spice  clove  raspberry  aromas  deliver  wild  drink  juicy  whiff  violet  white pepper  open  blue  leather  herb  a whiff  flower  white  firm  crush  a hint  anise  acidity  hint  note  licorice  enjoy  polished  blue flower  cinnamon  bright  red berry  ripe  underbrush  dark  skinned  tobacco  grain  the glass  dol
+
+Cluster 15:  pinot  noir  cherry  raspberry  silky  cola  dry  drink  acidity  good  cherries  red  oak  year  rich  's  finish  show  light  spice  crisp  ripe  texture  tannin  raspberries  chardonnay  vineyard  strawberry  flavors  like  sweet  tart  fine  soft  note  complex  blend  elegant  the wine  sandalwood  bodied  little  mushroom  delicious  vanilla  color  offer  currant  balance  palate

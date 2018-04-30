@@ -1,0 +1,32 @@
+Top terms per cluster:
+Cluster 0:  peach  white  citrus  acidity  stone  melon  fresh  apricot  flower  pear  honey  creamy  mineral  sweet  almond  dry  bright  apple  ripe  crisp  pineapple  lime  flowers  orange  tropical  floral  nectarine  chardonnay  rich  green  honeysuckle  blossom  soft  riesling  tangerine  well  refreshing  vanilla  simple  zest  round  slightly  spring  lead  lemon  zesty  blanc  medium  like  spice
+
+Cluster 1:  cherry  red  spice  tannins  raspberry  berry  leather  herb  dried  bright  dark  clove  firm  tobacco  wild  plum  acidity  pepper  licorice  black  lead  ripe  cinnamon  anise  fresh  baking  violet  grained  rose  polished  soft  vanilla  white  flower  strawberry  earth  blackberry  cranberry  provide  menthol  smooth  tart  sour  savory  sangiovese  grilled  cola  vibrant  sage  balsamic
+
+Cluster 2:  fruits  ripe  acidity  tannins  rich  red  soft  fruity  well  full  firm  black  berry  fresh  aging  2017  2018  rounded  smooth  fruitiness  dry  dark  also  gives  spice  although  richness  currant  2016  already  warm  produced  plum  sweet  2019  giving  freshness  bright  blackberry  mineral  tannic  comes  along  smoky  spicy  gentle  showing  strawberry  minerality  crisp
+
+Cluster 3:  cabernet  sauvignon  merlot  franc  verdot  black  tannins  cherry  blackberry  syrah  malbec  red  chocolate  cassis  spice  currant  dark  oak  plum  sangiovese  ripe  soft  rich  cedar  herb  tobacco  well  10  dry  dried  firm  bordeaux  vanilla  coffee  pepper  berry  tannic  herbs  acidity  leather  20  sweet  licorice  smooth  full  50  cab  blackberries  blueberry  raspberry
+
+Cluster 4:  berry  herbal  plum  red  earthy  spice  tannic  spicy  tannins  cherry  oaky  oak  baked  roasted  chocolate  fruits  fresh  wild  green  acidity  cassis  dark  black  jammy  tomato  hard  dry  ripe  blackberry  full  raspberry  slightly  sweet  peppery  lightly  herbs  minty  bright  vanilla  grabby  leather  like  tobacco  malbec  toasty  olive  well  along  earth  mild
+
+Cluster 5:  bodied  full  medium  ripe  cherry  black  rich  tannins  oak  like  red  blackberry  dry  dark  acidity  vanilla  well  spice  soft  plum  spicy  tannic  smooth  sweet  chocolate  fresh  pepper  fruity  savory  firm  raspberry  slightly  cedar  smoky  almost  earthy  dried  tannin  cherries  lingering  herb  complex  crisp  velvety  creamy  citrus  spices  yet  berry  strawberry
+
+Cluster 6:  lemon  lime  apple  acidity  fresh  zest  dry  crisp  citrus  white  peach  pear  riesling  green  orange  bright  refreshing  pineapple  honey  freshness  ripe  tangerine  mineral  chardonnay  zesty  sweet  tart  stone  vanilla  creamy  minerality  rich  blossom  brisk  apricot  fruity  well  tangy  tropical  floral  oak  like  pith  apples  savory  blanc  melon  yet  full  medium
+
+Cluster 7:  still  tannins  fruits  acidity  ripe  rich  firm  black  2018  2017  dark  dry  well  full  spice  red  fresh  developing  aging  wood  2019  showing  mineral  although  2016  berry  cherry  plum  blackberry  fruity  crisp  tannic  richness  currant  also  citrus  fruitiness  freshness  oak  wait  soft  sweet  quite  2020  yet  soften  bright  need  toast  produced
+
+Cluster 8:  sweet  dry  acidity  soft  blackberry  like  ripe  tannins  rich  cherry  chocolate  citrus  fresh  raspberry  well  vanilla  orange  tart  spice  green  strawberry  dark  cherries  syrah  red  slightly  spicy  also  simple  dried  tannic  fruity  plum  almost  honey  smooth  herbs  earthy  complex  tropical  pepper  yet  bitter  bright  cranberry  apricot  quite  blueberry  pineapple  richness
+
+Cluster 9:  grapefruit  lemon  lime  citrus  acidity  white  fresh  crisp  dry  apple  green  mineral  peach  zesty  bright  riesling  blanc  refreshing  orange  tangerine  zest  sauvignon  ripe  melon  pear  pith  pineapple  stone  lively  tangy  bodied  fruity  passion  tart  full  citrusy  tropical  well  freshness  minerality  medium  sweet  yet  nectarine  like  grass  pithy  brisk  honey  floral
+
+Cluster 10:  black  cherry  tannins  pepper  plum  blackberry  dark  currant  licorice  ripe  chocolate  spice  dried  firm  rich  tannic  leather  coffee  soft  tobacco  acidity  well  syrah  red  cassis  clove  espresso  bottling  vanilla  savory  dry  raspberry  full  blueberry  cedar  earth  earthy  smooth  spicy  cola  lead  sweet  meat  olive  mocha  deep  fresh  velvety  tea  herbs
+
+Cluster 11:  crisp  acidity  fruity  fresh  bright  citrus  lively  dry  fruits  red  refreshing  apple  tangy  green  mineral  ripe  well  fruitiness  soft  apples  gives  blanc  white  full  rosé  currant  lightly  spice  chardonnay  orange  flavored  herbal  also  freshness  pear  sauvignon  minerality  creamy  sweet  raspberry  rich  lime  apéritif  cool  zesty  steely  apricot  lemon  strawberry  cherry
+
+Cluster 12:  oak  vanilla  french  cherry  blackberry  tannins  sweet  smoky  ripe  rich  black  toast  chocolate  toasty  acidity  spice  soft  dry  chardonnay  toasted  dark  plum  red  well  raspberry  cassis  like  spicy  cabernet  tannic  currant  buttered  coffee  cherries  creamy  100  berry  blackberries  richness  along  smooth  jam  aging  mocha  licorice  tannin  firm  tropical  complex  pineapple
+
+Cluster 13:  wood  aging  fruits  ripe  rich  tannins  acidity  spice  black  well  full  firm  2018  toast  red  dark  smooth  2017  fruity  richness  spicy  fruitiness  berry  smoky  currant  dry  still  soft  plum  gives  toasty  also  rounded  fresh  giving  2016  blackberry  dominated  2019  comes  along  sweet  showing  although  produced  strongly  2020  crisp  already  tannic
+
+Cluster 14:  pinot  noir  cherry  silky  cola  raspberry  dry  acidity  cherries  red  rich  oak  raspberries  ripe  chardonnay  crisp  tannins  like  soft  sweet  tart  spice  well  strawberry  complex  sandalwood  vanilla  fresh  bodied  black  earthy  spicy  yet  smoky  full  cranberry  bright  simple  spices  pie  fruity  brisk  rosé  orange  plum  slightly  berry  dark  citrus  cool
+
+Cluster 15:  apple  pear  green  citrus  acidity  fresh  melon  ripe  dry  lime  crisp  creamy  chardonnay  white  peach  soft  bright  mineral  well  baked  rich  sweet  freshness  orange  refreshing  full  spice  pineapple  tropical  vanilla  tart  fruity  nectarine  honey  stone  medium  almond  lemon  zest  oak  minerality  simple  slightly  lightly  rounded  lead  bitter  round  riesling  along
