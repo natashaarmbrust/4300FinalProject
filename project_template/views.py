@@ -36,9 +36,9 @@ search_description_wine = "Describe your wine ..."
 # food_index_to_word = read_file()
 
 
-#wine_words_compressed = read_file()
-#wine_word_to_index = read_file()
-#wine_index_to_word = read_file()
+wine_words_compressed = read_file()
+wine_word_to_index = read_file()
+wine_index_to_word = read_file()
 
 
 # Wine Data
