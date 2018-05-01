@@ -1,7 +1,6 @@
 import numpy as np
 from .utility import read_file
 
-
 def closest_words(word_in, words_compressed, word_to_index, index_to_word, k = 5):
     if word_in not in word_to_index: return [word_in]
     sims = words_compressed.dot(words_compressed[int(word_to_index[word_in]),:])
