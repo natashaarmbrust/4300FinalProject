@@ -10,7 +10,7 @@ wine_words_compressed = read_file()
 wine_word_to_index = read_file()
 wine_index_to_word = read_file()
 
-def closest_words(word_in, words_compressed, word_to_index, index_to_word, k = 10):
+def closest_words(word_in, words_compressed, word_to_index, index_to_word, k = 4):
     if word_in not in word_to_index: return [word_in]
     sims = words_compressed.dot(words_compressed[word_to_index[word_in],:])
     asort = np.argsort(-sims)[:k+1]

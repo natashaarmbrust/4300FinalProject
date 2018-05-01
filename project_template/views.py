@@ -154,7 +154,7 @@ def result_food(request):
   state = RESULT_WINE
   # TODO: call backend method with search type to get top 3 foods based on query
   query = request.GET.get('q')
-  #query=expand_query(tokenize(query), wine_words_compressed, wine_word_to_index, wine_index_to_word)
+  query=expand_query(tokenize(query), wine_words_compressed, wine_word_to_index, wine_index_to_word)
 
   # Replace with actual outputs
   buckets = []
