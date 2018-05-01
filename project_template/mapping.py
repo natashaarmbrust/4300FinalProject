@@ -20,6 +20,56 @@ wine_buckets = {
 	'medium_red' : set(['merlot','sangiovese','zinfandel','cabernet franc','tempranillo','nebbiolo','barbera','tinta de toro','red blend']),
 	'light_red' : set(['pinot noir','gamay','grenache','carignan','counoise'])
 }
+wine_cluster_buckets = {
+	'sparkling' : [5, 7],
+	'dessert' : [0, 8],
+	'sweet_white' : [8, 9],
+	'light_white' : [5, 9, 11],
+	'rich_white' : [1, 13],
+	'rose' : [7],
+	'bold_red' :[2, 3, 10, 15],
+	'medium_red' : [6, 12],
+	'light_red' : [4, 14]
+}
+wine_cluster_buckets_reverse = {
+	5 : ['sparkling', 'light_white'] ,
+	7 : ['sparkling'] ,
+	0 : ['dessert'],
+	8 : ['dessert', 'sweet_white'],
+	9 : ['sweet_white', 'light_white'],
+	11 : ['light_white'],
+	1 : ['rich_white'],
+	13 : ['rich_white'],
+	7 : ['rose'],
+	2 : ['bold_red'],
+	3 : ['bold_red'],
+	10 : ['bold_red'],
+	15 : ['bold_red'],
+	6 : ['medium_red'],
+	12 : ['medium_red'],
+	4 : ['light_red'],
+	14 :['light_red']
+}
+
+wine_cluster_buckets_reverse = {
+	5 : ['sparkling', 'light_white'] ,
+	7 : ['sparkling'] ,
+	0 : ['dessert'],
+	8 : ['dessert', 'sweet_white'],
+	9 : ['sweet_white', 'light_white'],
+	11 : ['light_white'],
+	1 : ['rich_white'],
+	13 : ['rich_white'],
+	7 : ['rose'],
+	2 : ['bold_red'],
+	3 : ['bold_red'],
+	10 : ['bold_red'],
+	15 : ['bold_red'],
+	6 : ['medium_red'],
+	12 : ['medium_red'],
+	4 : ['light_red'],
+	14 :['light_red']
+}
 
 food_buckets = {
 	'red_meat' : set(['lamb','beef','venison', 'veal', 'mutton', 'ground beef', 'bison', 'steak', 'ground lamb']),
@@ -131,8 +181,8 @@ def generate_food_words(varietal, wine_words):
 	bad_flavors = set.union(*bad_flavors)
 
 	# varietals = set([word.lower() for word in varietals])
-	print("varietal", varietal)
-	wine_type = get_wine_bucket(set([varietal.lower()]))
+	# print("varietal", varietal)
+	wine_type = get_wine_bucket([varietal.lower()] + wine_words)
 
 	# for wine_type in wine_types:
 	food_types = wine_to_food(wine_type)
