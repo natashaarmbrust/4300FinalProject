@@ -11,7 +11,8 @@ from .cosine import index_search_cosine_sim_wine, index_search_cosine_sim_food
 from .utility import read_file, read_csv, tokenize
 from enum import Enum
 from .mapping import generate_food_words, generate_wine_words
-
+import numpy as np
+from query_exp import expand_query
 
 
 # STATES 
@@ -36,9 +37,11 @@ search_description_wine = "Describe your wine ..."
 # food_index_to_word = read_file()
 
 
-#wine_words_compressed = read_file()
-#wine_word_to_index = read_file()
-#wine_index_to_word = read_file()
+wine_words_compressed = read_file(32)
+wine_word_to_index = read_file(33)
+wine_index_to_word = read_file(34)
+
+wine_words_compressed = np.array(wine_words_compressed)
 
 
 # Wine Data
@@ -154,7 +157,7 @@ def result_food(request):
   state = RESULT_WINE
   # TODO: call backend method with search type to get top 3 foods based on query
   query = request.GET.get('q')
-  #query=expand_query(tokenize(query), wine_words_compressed, wine_word_to_index, wine_index_to_word)
+  query=expand_query(tokenize(query), wine_words_compressed, wine_word_to_index, wine_index_to_word)
 
   # Replace with actual outputs
   buckets = []
