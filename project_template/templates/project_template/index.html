@@ -381,7 +381,7 @@
                   <img src="/static/img/{{best_choice.food.bucket}}_3.png" class="wine_pic" alt="wine photo">
                   <h4>Suggested Wine Pairing Flavors:</h4>
                     <div class="padding flavor">
-                    <span id="searchTextSmall" style="color: #738543!important;" >{{best_choice.food.words}}</span>
+                    <span id="searchTextSmall">{{best_choice.food.words}}</span>
                     </div>
                 </div>
 
@@ -390,7 +390,7 @@
                     
                     <div class="recipe">
                       <img class="chevron" src="/static/img/down-chevron.png" alt=""/>
-                      {{best_choice.title}}
+                      {{best_choice.wine.title}}
                       <div class="recipe-dropdown">
                         <div class="col recipe-col wine-col">
                           <ul>
@@ -458,7 +458,7 @@
                   <img src="/static/img/{{second_choice.food.bucket}}_3.png" class="wine_pic" alt="wine photo">
                   <h4>Suggested Wine Pairing Flavors:</h4>
                     <div class="padding flavor">
-                    <span id="searchTextSmall" style="color: #738543!important;" >{{second_choice.food.words}}</span>
+                    <span id="searchTextSmall" >{{second_choice.food.words}}</span>
                     </div>
                 </div>
 
@@ -467,7 +467,7 @@
                     
                     <div class="recipe">
                       <img class="chevron" src="/static/img/down-chevron.png" alt=""/>
-                      {{second_choice.title}}
+                      {{second_choice.wine.title}}
                       <div class="recipe-dropdown">
                         <div class="col recipe-col wine-col">
                           <ul>
@@ -531,7 +531,7 @@
                   <img src="/static/img/{{third_choice.food.bucket}}_3.png" class="wine_pic" alt="wine photo">
                   <h4>Suggested Wine Pairing Flavors:</h4>
                     <div class="padding flavor">
-                    <span id="searchTextSmall" style="color: #738543!important;" >{{third_choice.food.words}}</span>
+                    <span id="searchTextSmall" >{{third_choice.food.words}}</span>
                     </div>
                 </div>
 
@@ -540,17 +540,17 @@
                     
                     <div class="recipe">
                       <img class="chevron" src="/static/img/down-chevron.png" alt=""/>
-                      {{third_choice.title}}
+                      {{third_choice.wine.title}}
                       <div class="recipe-dropdown">
                         <div class="col recipe-col wine-col">
                           <ul>
-                            <li>Winery: {{third_choice.winery}}</li>
-                            <li>Variety: {{third_choice.varietal}}</li>
-                            <li>Region: {{third_choice.region}}</li>
-                            <li>Province: {{third_choice.province}}</li>
-                            <li>Country:  {{third_choice.country}}</li>
-                            <li>Price: {{third_choice.price}}</li>
-                            <li>Points: {{third_choice.points}}</li>
+                            <li>Winery: {{third_choice.wine.winery}}</li>
+                            <li>Variety: {{third_choice.wine.varietal}}</li>
+                            <li>Region: {{third_choice.wine.region}}</li>
+                            <li>Province: {{third_choice.wine.province}}</li>
+                            <li>Country:  {{third_choice.wine.country}}</li>
+                            <li>Price: {{third_choice.wine.price}}</li>
+                            <li>Points: {{third_choice.wine.points}}</li>
                           </ul>
                         </div>
                       </div>

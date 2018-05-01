@@ -36,9 +36,9 @@ search_description_wine = "Describe your wine ..."
 # food_index_to_word = read_file()
 
 
-wine_words_compressed = read_file()
-wine_word_to_index = read_file()
-wine_index_to_word = read_file()
+#wine_words_compressed = read_file()
+#wine_word_to_index = read_file()
+#wine_index_to_word = read_file()
 
 
 # Wine Data
@@ -51,9 +51,7 @@ inverted_index_wine = read_file(23)
 idf_dict_wine = read_file(24)
 # doc_norms_wine = read_file(14)
 doc_norms_wine = read_file(25)
-print("files loaded")
 wine_data = read_file(22)
-print("files loaded?")
 num_docs_wine = len(wine_data)
 
 # Food Data
@@ -109,34 +107,40 @@ def result_wine(request):
 
   top3foods = index_search_cosine_sim_food(query,inverted_index_food,doc_norms_food,idf_dict_food,food_data)
 
-  wine_output = from_food_get_wine(top3foods)
+  wine_output, buckets = from_food_get_wine(top3foods)
 
-  # top_wine_outputs = []
-  # if query:
-  #     # TODO
-  #     top_wine_outputs = ['Wine 1', 'Wine2', 'Wine3']
+  results = [] 
+  for i,wine in enumerate(wine_output):
+    words = wine["profile"]
+    result = {
+      "bucket" : buckets[i][0],
+      "words" : ", ".join(list(words)[:10]), # NOTE - words should be a string spereated by commas (and also we should probably reduce it to like 10 elements)
+      "recipes" : [top3foods[i]]
+    }
+
+    results.append(result)
 
   best_choice = None
   second_choice = None
   third_choice = None
 
   for i, out in enumerate(wine_output):
+      output = {"food": results[i], "wine": wine_output[i]}
       if i == 0:
-          best_choice = wine_output[i]
+          best_choice = output
       if i == 1:
-          second_choice = wine_output[i]
+          second_choice = output
       if i == 2:
-          third_choice = wine_output[i]
+          third_choice = output
       if i > 2:
           break
 
   return render_to_response('project_template/index.html',
                               {
                               "state": state,
-                                'top_3_foods':top3foods,
-                                  "best_choice": best_choice,
-                                  "second_choice": second_choice,
-                                  "third_choice": third_choice,
+                              "best_choice": best_choice,
+                              "second_choice": second_choice,
+                              "third_choice": third_choice,
                               })
 
 
@@ -144,7 +148,7 @@ def result_food(request):
   state = RESULT_WINE
   # TODO: call backend method with search type to get top 3 foods based on query
   query = request.GET.get('q')
-  query=expand_query(tokenize(query), wine_words_compressed, wine_word_to_index, wine_index_to_word)
+  #query=expand_query(tokenize(query), wine_words_compressed, wine_word_to_index, wine_index_to_word)
 
   # Replace with actual outputs
   buckets = []
@@ -198,18 +202,19 @@ output = [{},...] result from cosine_sim
 def from_food_get_wine(top_3_foods):
   
   wine_output = []
+  buckets = []
   
   for recipe in top_3_foods:
     # ingredients = recipe['ingredients']
     print(recipe['title'])
-    flavors = generate_wine_words(recipe['categories'],recipe['title'])
+    flavors, bucket = generate_wine_words(recipe['categories'],recipe['title'])
     flavors = " ".join(flavors)
-    print(flavors)
     top_wines = index_search_cosine_sim_wine(flavors,inverted_index_wine,doc_norms_wine,idf_dict_wine,wine_data)
 
+    buckets.append(bucket)
     wine_output.append(top_wines[0])
 
-  return wine_output
+  return wine_output, buckets
 
 
 

@@ -180,6 +180,7 @@ def generate_wine_words(food_words, recipe):
 		Function returns the relevant wine description words 
 		for an input set of food description words. '''	
 
+	buckets = []
 	recipe = tokenize(recipe.lower())
 	food_words = [word.lower() for word in food_words] + recipe
 
@@ -188,7 +189,9 @@ def generate_wine_words(food_words, recipe):
 	for food in food_types:
 		wine_types = food_to_wine(food)
 		for wine in wine_types:
-			wine_words = set.union(wine_words, wine_buckets[wine])        
+			wine_words = set.union(wine_words, wine_buckets[wine])   
+			buckets.append(wine)
+
 
 	# salt_threshold = 800
 	# if sodium > salt_threshold:
@@ -234,4 +237,4 @@ def generate_wine_words(food_words, recipe):
 	# 	wine_words = set.difference(wine_words, taste_descriptors['tannin'])
 
 	# return list(wine_words) + food_words
-	return food_words + list(wine_words)
+	return food_words + list(wine_words), buckets
