@@ -145,7 +145,7 @@ def generate_food_words(varietal, wine_words):
 		# output.append(sub_output)
 
 	# return output
-	return wine_type, good_flavors, list(food_words)
+	return wine_type, good_flavors, bad_flavors, list(food_words)
 
 
 ''' FUNCTIONS FOR FOOD -> WINE '''

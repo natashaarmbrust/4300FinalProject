@@ -71,7 +71,6 @@ doc_norms_food = read_file(31)
 
 # Create your views here.
 def index(request):
-    print(state)
     return render_to_response('project_template/index.html',
                               {
                               # put outputs here'
@@ -213,7 +212,6 @@ def from_food_get_wine(top_3_foods):
   
   for recipe in top_3_foods:
     # ingredients = recipe['ingredients']
-    print(recipe['title'])
     flavors, bucket = generate_wine_words(recipe['categories'],recipe['title'])
     flavors = " ".join(flavors)
     top_wines = index_search_cosine_sim_wine(flavors,inverted_index_wine,doc_norms_wine,idf_dict_wine,wine_data)
@@ -276,8 +274,7 @@ def from_wine_get_food(top_3_wines):
   food_output = []
 
   for wine in top_3_wines:
-    bucket, words, foods = generate_food_words(wine['varietal'], wine['profile'])
-    print("Bucket", bucket)
+    bucket, good_words, bad_words, foods = generate_food_words(wine['varietal'], wine['profile'])
     foods = " ".join(foods)
     recipes = index_search_cosine_sim_food(foods, inverted_index_food, doc_norms_food, idf_dict_food,
                                                    food_data)
@@ -288,7 +285,8 @@ def from_wine_get_food(top_3_wines):
     
     result = {
       "bucket" : bucket,
-      "words" : ", ".join(list(words)[:10]), # NOTE - words should be a string spereated by commas (and also we should probably reduce it to like 10 elements)
+      "words" : ", ".join(list(good_words)[:10]), # NOTE - words should be a string spereated by commas (and also we should probably reduce it to like 10 elements),
+
       "recipes" : top_recipes[:3]
     }
 
