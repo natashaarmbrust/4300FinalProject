@@ -105,7 +105,14 @@ def result_wine(request):
   state = RESULT_FOOD
   # Replace with actual outputs
 
-  top3foods = index_search_cosine_sim_food(query,inverted_index_food,doc_norms_food,idf_dict_food,food_data)
+  top10foods = index_search_cosine_sim_food(query,inverted_index_food,doc_norms_food,idf_dict_food,food_data)
+  top3foods = []
+  seenFoods = set()
+  for food in top10foods:
+      if food['title'] not in seenFoods:
+          top3foods.append(food)
+          seenFoods.add(food["title"])
+
 
   wine_output, buckets = from_food_get_wine(top3foods)
 

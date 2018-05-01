@@ -65,7 +65,7 @@ def index_search_cosine_sim_food(query, inverted_index, doc_norms, idf, raw_food
     sorted_by_second = sorted(list(score_query_doc.items()), key=lambda tup: tup[1], reverse=True)
 
     food_output = []
-    num = min(len(score_query_doc), 3)
+    num = min(len(score_query_doc), 10)
     for i in range(num):
         doc_id = sorted_by_second[i][0]
         doc_score = sorted_by_second[i][1]
@@ -120,7 +120,7 @@ def index_search_cosine_sim_wine(query, inverted_index, doc_norms, idf, raw_wine
     sorted_by_second = sorted(list(score_query_doc.items()), key=lambda tup: tup[1], reverse=True)
 
     wine_output = []
-    num = min(len(score_query_doc),3)
+    num = min(len(score_query_doc),10)
     for i in range(num):
 
         doc_id  = sorted_by_second[i][0]
